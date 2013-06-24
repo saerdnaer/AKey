@@ -8,68 +8,77 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".MainActivity" >
 
-    <EditText
-        android:id="@+id/editText1"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/textView3"
-        android:layout_marginLeft="44dp"
-        android:layout_toRightOf="@+id/textView3"
-        android:ems="10"
-        android:inputType="textEmailAddress" />
-
-    <CheckBox
-        android:id="@+id/checkBox1"
-        android:layout_width="wrap_content"
-        android:layout_height="19dp"
-        android:layout_above="@+id/button1"
-        android:layout_alignRight="@+id/editText2"
-        android:layout_marginBottom="16dp"
-        android:text="@string/RememberMe"
-        android:textSize="@dimen/activity_horizontal_margin" />
-
-    <Button
-        android:id="@+id/button1"
+    <RelativeLayout
+        android:id="@+id/Test2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView1"
-        android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/checkBox1"
-        android:layout_marginBottom="23dp"
-        android:background="@drawable/login_button"
-        android:text="@string/Login"
-        android:textColor="#ffffff" />
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true" >
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="53dp"
-        android:layout_marginTop="39dp"
-        android:text="@string/Username"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textSize="20sp" />
+        <EditText
+            android:id="@+id/editText1"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/textView3"
+            android:layout_marginLeft="44dp"
+            android:layout_toRightOf="@+id/textView3"
+            android:ems="10"
+            android:inputType="textEmailAddress" >
 
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView3"
-        android:layout_alignTop="@+id/editText2"
-        android:text="@string/Password"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textSize="20sp" />
+            <requestFocus />
+        </EditText>
 
-    <EditText
-        android:id="@+id/editText2"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/editText1"
-        android:layout_below="@+id/editText1"
-        android:layout_marginTop="18dp"
-        android:ems="10"
-        android:inputType="textPassword" />
+        <EditText
+            android:id="@+id/editText2"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/editText1"
+            android:layout_below="@+id/editText1"
+            android:layout_marginTop="30dp"
+            android:ems="10"
+            android:inputType="textPassword" />
+
+        <CheckBox
+            android:id="@+id/checkBox1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@+id/editText2"
+            android:layout_below="@+id/editText2"
+            android:layout_marginTop="20dp"
+            android:text="@string/RememberMe" />
+
+        <Button
+            android:id="@+id/button1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/textView1"
+            android:layout_alignRight="@+id/checkBox1"
+            android:layout_below="@+id/checkBox1"
+            android:layout_marginTop="11dp"
+            android:background="@drawable/login_button"
+            android:text="@string/Login"
+            android:textColor="#ffffff" />
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/editText2"
+            android:layout_alignParentLeft="true"
+            android:text="@string/Password"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="44dp"
+            android:text="@string/Username"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textSize="20sp" />
+    </RelativeLayout>
 
 </RelativeLayout>
