@@ -17,6 +17,5 @@ public class KisiMain extends Activity{
 	
         getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
 
-	
 	}
 }
