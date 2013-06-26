@@ -12,8 +12,9 @@
         android:id="@+id/Test2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true" >
+        android:layout_marginTop="15dp" >
 
         <EditText
             android:id="@+id/editText1"
@@ -23,10 +24,7 @@
             android:layout_marginLeft="44dp"
             android:layout_toRightOf="@+id/textView3"
             android:ems="10"
-            android:inputType="textEmailAddress" >
-
-            <requestFocus />
-        </EditText>
+            android:inputType="textEmailAddress" />
 
         <EditText
             android:id="@+id/editText2"
@@ -54,10 +52,10 @@
             android:layout_alignLeft="@+id/textView1"
             android:layout_alignRight="@+id/checkBox1"
             android:layout_below="@+id/checkBox1"
-            android:layout_marginTop="11dp"
             android:background="@drawable/login_button"
             android:text="@string/Login"
-            android:textColor="#ffffff" />
+            android:textColor="#ffffff"
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/textView1"
@@ -75,7 +73,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:layout_marginTop="44dp"
+            android:layout_marginTop="14dp"
             android:text="@string/Username"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textSize="20sp" />

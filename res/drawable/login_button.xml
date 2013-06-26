@@ -7,7 +7,7 @@ xmlns:android="http://schemas.android.com/apk/res/android">
         <gradient
             android:endColor="#2EAADC"
             android:centerColor="#2e53dc"
-            android:startColor="#2EAADC"
+            android:startColor="#2e53dc"
             android:angle="270" />
         <stroke
             android:width="5dp"

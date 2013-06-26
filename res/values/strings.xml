@@ -4,7 +4,7 @@
     <string name="app_name">KisiBox</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
-    <string name="Username">Username:</string>
+    <string name="Username">E-Mail:</string>
     <string name="Password">Password:</string>
     <string name="RememberMe">Remember Me</string>
     <string name="Login">Login</string>

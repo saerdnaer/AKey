@@ -15,8 +15,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="66dp" >
+        android:layout_marginTop="85dp" >
 
         <CheckBox
             android:id="@+id/checkBox1"
@@ -47,17 +46,10 @@
             android:layout_alignBottom="@+id/textView1"
             android:layout_alignLeft="@+id/editText1"
             android:ems="10"
-            android:inputType="textPassword" />
+            android:inputType="textPassword" >
 
-        <EditText
-            android:id="@+id/editText1"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/textView3"
-            android:layout_marginLeft="12dp"
-            android:layout_toRightOf="@+id/textView3"
-            android:ems="10"
-            android:inputType="textEmailAddress" />
+            <requestFocus />
+        </EditText>
 
         <TextView
             android:id="@+id/textView1"
@@ -75,9 +67,20 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:layout_marginTop="41dp"
+            android:layout_marginLeft="41dp"
+            android:layout_marginTop="40dp"
             android:text="@string/Username"
             android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <EditText
+            android:id="@+id/editText1"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/textView1"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"
+            android:ems="10"
+            android:inputType="textEmailAddress" />
     </RelativeLayout>
 
 </RelativeLayout>
