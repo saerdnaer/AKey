@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -33,7 +34,8 @@ public class MainActivity extends Activity implements OnClickListener {
 
 		setContentView(R.layout.activity_main);
 
-		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
+		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE,
+				R.layout.window_title);
 
 		loginButton = (Button) findViewById(R.id.button1);
 		loginButton.setOnClickListener(this);
