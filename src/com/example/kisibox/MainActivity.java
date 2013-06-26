@@ -28,12 +28,12 @@ public class MainActivity extends Activity implements OnClickListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
-        requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
-			
+
+		requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
+
 		setContentView(R.layout.activity_main);
-		
-        getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
+
+		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
 
 		loginButton = (Button) findViewById(R.id.button1);
 		loginButton.setOnClickListener(this);
@@ -69,7 +69,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		// if clicked on botton gather all informations and send to next view
 
 		String userName = userNameField.getText().toString(); // get Text of
-																// EditTextfield
+		// EditTextfield
 
 		String pasword = paswordField.getText().toString();
 
@@ -93,11 +93,9 @@ public class MainActivity extends Activity implements OnClickListener {
 	}
 
 	private void login() {
-		// TODO Auto-generated method stub
 		Toast.makeText(this, "logging in", Toast.LENGTH_LONG).show();
 		Intent mainScreen = new Intent(getApplicationContext(), KisiMain.class);
 		startActivity(mainScreen);
-
 	}
 
 	private void deleteLogin() {
@@ -105,7 +103,6 @@ public class MainActivity extends Activity implements OnClickListener {
 		editor.remove("userName");
 		editor.remove("pasword");
 		editor.commit();
-
 	}
 
 	private void saveLogin(Login login) {
