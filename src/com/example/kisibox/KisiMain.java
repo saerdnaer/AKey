@@ -33,21 +33,16 @@ public class KisiMain extends FragmentActivity {
 
 	public void initializePager() {
 		//TODO: change from Test to real Data
-		String street = "Musterstraße";
-		String housenumber = "5";
-		String door1 = "Front Door";
-		String door2 = "Apartment Door";
-		String door3 = "Garage Door";
-		String door4 = "Cellar Door";
+
 
 		List<Fragment> fragments = new Vector<Fragment>(); 
-		fragments.add(LocationOneDoor.newInstance("Home",street,housenumber,door1));
+		fragments.add(LocationOneDoor.newInstance("Home","Römerstraße","17","Front Door"));
 		
 		
-		fragments.add(LocationTwoDoors.newInstance("Home",street,housenumber,door1,door2));
-		fragments.add(LocationThreeDoors.newInstance("Home",street,housenumber,door1,door2,door3));	
-		fragments.add(LocationFourDoors.newInstance("Home",street,housenumber,door1,door2,door3,door4));		
-		fragments.add(LocationThreeDoors.newInstance("Mustafa","Römerstraße","10","Front Door","Elevator","Apartment Door"));
+		fragments.add(LocationTwoDoors.newInstance("Meier","Hauptstraße","5","Front Door","Appartment Door"));
+		fragments.add(LocationThreeDoors.newInstance("Müller","Dorfstraße","23","Front Door","Garage Door","Cellar Door"));	
+		fragments.add(LocationFourDoors.newInstance("Uni","Boltzmannstraße","15","Front Door","Library","Room 02.07.23","Room 00.09.11"));		
+		
 		
 		FragmentManager fm = getSupportFragmentManager();
 		ViewPager pager = (ViewPager) findViewById(R.id.pager);

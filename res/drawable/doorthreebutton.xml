@@ -6,9 +6,9 @@ xmlns:android="http://schemas.android.com/apk/res/android">
 <item android:state_pressed="true" >
      <shape>
         <gradient
-            android:endColor="#2EAADC"
-            android:centerColor="#2e53dc"
-            android:startColor="#2e53dc"
+            android:endColor="#dc602e"
+            android:centerColor="#b30000"
+            android:startColor="#b30000"
             android:angle="270" />
         <stroke
             android:width="5dp"
@@ -23,9 +23,9 @@ xmlns:android="http://schemas.android.com/apk/res/android">
 <item>        
     <shape>
         <gradient
-            android:endColor="#2EAADC"
-            android:centerColor="#2EAADC"
-            android:startColor="#2EAADC"
+            android:endColor="#dc602e"
+            android:centerColor="#dc602e"
+            android:startColor="#dc602e"
             android:angle="270" />
         <stroke
             android:width="5dp"
