@@ -37,4 +37,8 @@ public class Gate {
 		return false;
 	}
 
+	public String getUpdatedAt() {
+		return updated_at;
+	}
+
 }
