@@ -3,6 +3,9 @@ package com.example.kisibox;
 import java.util.ArrayList;
 import java.util.List;
 
+//import com.google.android.maps.GeoPoint;
+import android.graphics.Point;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 

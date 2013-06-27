@@ -11,35 +11,46 @@
     android:paddingTop="@dimen/activity_vertical_margin" >
 
     <TextView
-        android:id="@+id/textViewTwoDoors"
+        android:id="@+id/textViewThreeDoors"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="15dp"
-        android:text="@string/locationtwodoors"
+        android:text="@string/locationthreedoors"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <Button
-        android:id="@+id/buttonTwoDoorOne"
+        android:id="@+id/buttonThreeDoorOne"
         android:layout_width="200sp"
         android:layout_height="100sp"
-        android:layout_below="@+id/textViewTwoDoors"
+        android:layout_below="@+id/textViewThreeDoors"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="10dp"
         android:background="@drawable/dooronebutton"
         android:text="@string/doorOne"
         android:textColor="#ffffff" />
 
     <Button
-        android:id="@+id/buttonTwoDoorTwo"
+        android:id="@+id/buttonThreeDoorTwo"
         android:layout_width="200sp"
         android:layout_height="100sp"
-        android:layout_alignLeft="@+id/buttonTwoDoorOne"
-        android:layout_below="@+id/buttonTwoDoorOne"
-        android:layout_marginTop="50dp"
+        android:layout_below="@+id/buttonThreeDoorOne"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
         android:background="@drawable/doortwobutton"
         android:text="@string/doortwoopen"
+        android:textColor="#ffffff" />
+
+    <Button
+        android:id="@+id/buttonThreeDoorThree"
+        android:layout_width="200sp"
+        android:layout_height="100sp"
+        android:layout_below="@+id/buttonThreeDoorTwo"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/doorthreebutton"
+        android:text="@string/doorthreeopen"
         android:textColor="#ffffff" />
 
 </RelativeLayout>

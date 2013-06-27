@@ -10,9 +10,13 @@
     <string name="Login">Login</string>
     <string name="slogan">The key in your phone</string>
     <string name="kisi">KISI</string>
-    <string name="locationonedoor">Location with one Door</string>
+    <string name="locationonedoor">Location with One Door</string>
     <string name="doorOne">Open Door One</string>
     <string name="doortwoopen">Open Door Two</string>
     <string name="locationtwodoors">Location with Two Doors</string>
+    <string name="locationthreedoors">Location with Three Doors</string>
+    <string name="doorthreeopen">Open Door Three</string>
+    <string name="doorfouropen">Open Door Four</string>
+    <string name="locationfourdoors">Location with Four Doors</string>
 
 </resources>

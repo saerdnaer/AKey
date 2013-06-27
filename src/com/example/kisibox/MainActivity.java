@@ -4,17 +4,14 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends Activity implements OnClickListener {
@@ -23,10 +20,10 @@ public class MainActivity extends Activity implements OnClickListener {
 	private EditText userNameField;
 	private EditText paswordField;
 
+	private Login currentLogin;
+	
 	private SharedPreferences settings;
 	private SharedPreferences.Editor editor;
-
-	private Login loginData;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -70,14 +67,14 @@ public class MainActivity extends Activity implements OnClickListener {
 
 	@Override
 	public void onClick(View arg0) {
-		// user touched the login botton: gather all informations and send to next view
+		// if clicked on botton gather all informations and send to next view
 
 		String userName = userNameField.getText().toString(); // get Text of
 		// EditTextfield
 
 		String pasword = paswordField.getText().toString();
 
-		loginData = new Login(userName, pasword);
+		currentLogin = new Login(userName, pasword);
 
 		// Toast.makeText(this, userName+" "+pasword, Toast.LENGTH_LONG).show();
 
@@ -85,7 +82,7 @@ public class MainActivity extends Activity implements OnClickListener {
 
 		if (savePasword.isChecked()) {
 			Log.d("check", "saving");
-			saveLogin(loginData);
+			saveLogin(currentLogin);
 
 		} else {
 			Log.d("check", "deleting");
@@ -117,13 +114,16 @@ public class MainActivity extends Activity implements OnClickListener {
 	}
 
 	public Login getLogin() {
-		if (loginData == null) {
-			String tempUser = settings.getString("userName", "");
-			String tempPw = settings.getString("pasword", "");
 
-			loginData = new Login(tempUser, tempPw);
-		}
-		return loginData;
+		String tempUser = settings.getString("userName", "");
+		String tempPw = settings.getString("pasword", "");
+		/*
+		if(tempUser.equals("")){
+			return currentLogin;
+		}*/
+
+		return new Login(tempUser, tempPw);
+
 	}
 
 }

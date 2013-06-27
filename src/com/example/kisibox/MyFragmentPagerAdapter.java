@@ -2,7 +2,6 @@ package com.example.kisibox;
 
 import java.util.List;
 
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -33,7 +32,7 @@ public class MyFragmentPagerAdapter extends FragmentPagerAdapter {
 	}
 	
 	@Override
-    public CharSequence getPageTitle(int position) {
-        return "Page #" + ( position + 1 ); //change to Adress
+    public CharSequence getPageTitle(int num) {
+        return getItem(num).getArguments().getString("Name");
     }
 }
