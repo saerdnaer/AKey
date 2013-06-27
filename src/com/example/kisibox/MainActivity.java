@@ -26,6 +26,8 @@ public class MainActivity extends Activity implements OnClickListener {
 	private SharedPreferences settings;
 	private SharedPreferences.Editor editor;
 
+	private Login loginData;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -68,14 +70,14 @@ public class MainActivity extends Activity implements OnClickListener {
 
 	@Override
 	public void onClick(View arg0) {
-		// if clicked on botton gather all informations and send to next view
+		// user touched the login botton: gather all informations and send to next view
 
 		String userName = userNameField.getText().toString(); // get Text of
 		// EditTextfield
 
 		String pasword = paswordField.getText().toString();
 
-		Login currentLogin = new Login(userName, pasword);
+		loginData = new Login(userName, pasword);
 
 		// Toast.makeText(this, userName+" "+pasword, Toast.LENGTH_LONG).show();
 
@@ -83,7 +85,7 @@ public class MainActivity extends Activity implements OnClickListener {
 
 		if (savePasword.isChecked()) {
 			Log.d("check", "saving");
-			saveLogin(currentLogin);
+			saveLogin(loginData);
 
 		} else {
 			Log.d("check", "deleting");
@@ -114,13 +116,14 @@ public class MainActivity extends Activity implements OnClickListener {
 		editor.commit();
 	}
 
-	private Login getLogin() {
+	public Login getLogin() {
+		if (loginData == null) {
+			String tempUser = settings.getString("userName", "");
+			String tempPw = settings.getString("pasword", "");
 
-		String tempUser = settings.getString("userName", "");
-		String tempPw = settings.getString("pasword", "");
-
-		return new Login(tempUser, tempPw);
-
+			loginData = new Login(tempUser, tempPw);
+		}
+		return loginData;
 	}
 
 }
