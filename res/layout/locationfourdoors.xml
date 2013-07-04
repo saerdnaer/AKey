@@ -20,48 +20,62 @@
         android:text="@string/locationfourdoors"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <Button
-        android:id="@+id/buttonFourDoorOne"
-        android:layout_width="120sp"
-        android:layout_height="130sp"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textViewFourDoors"
-        android:layout_marginLeft="25dp"
-        android:layout_marginTop="50dp"
-        android:background="@drawable/dooronebutton"
-        android:text="@string/doorOne"
-        android:textColor="#ffffff" />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:baselineAligned="false"
+        android:orientation="horizontal" 
+        android:layout_centerHorizontal="true" 
+        android:layout_centerVertical="true">
 
-    <Button
-        android:id="@+id/buttonFourDoorThree"
-        android:layout_width="120sp"
-        android:layout_height="130sp"
-        android:layout_alignLeft="@+id/buttonFourDoorOne"
-        android:layout_below="@+id/buttonFourDoorOne"
-        android:layout_marginTop="40dp"
-        android:background="@drawable/doorthreebutton"
-        android:text="@string/doorthreeopen"
-        android:textColor="#ffffff" />
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical" >
 
-    <Button
-        android:id="@+id/buttonFourDoorTwo"
-        android:layout_width="120sp"
-        android:layout_height="130sp"
-        android:layout_alignBottom="@+id/buttonFourDoorOne"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="25dp"
-        android:background="@drawable/doortwobutton"
-        android:text="@string/doortwoopen"
-        android:textColor="#ffffff" />
+            <Button
+                android:id="@+id/buttonFourDoorOne"
+                android:layout_width="120sp"
+                android:layout_height="130sp"
+                android:background="@drawable/dooronebutton"
+                android:text="@string/doorOne"
+                android:textColor="#ffffff" />
 
-    <Button
-        android:id="@+id/buttonFourDoorFour"
-        android:layout_width="120sp"
-        android:layout_height="130sp"
-        android:layout_alignLeft="@+id/buttonFourDoorTwo"
-        android:layout_alignTop="@+id/buttonFourDoorThree"
-        android:background="@drawable/doorfourbutton"
-        android:text="@string/doorfouropen"
-        android:textColor="#ffffff" />
+            <Button
+                android:id="@+id/buttonFourDoorThree"
+                android:layout_width="120sp"
+                android:layout_height="130sp"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/doorthreebutton"
+                android:text="@string/doorthreeopen"
+                android:textColor="#ffffff" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="30dp"
+            android:layout_weight="1"
+            android:orientation="vertical" >
+
+            <Button
+                android:id="@+id/buttonFourDoorTwo"
+                android:layout_width="120sp"
+                android:layout_height="130sp"
+                android:background="@drawable/doortwobutton"
+                android:text="@string/doortwoopen"
+                android:textColor="#ffffff" />
+
+            <Button
+                android:id="@+id/buttonFourDoorFour"
+                android:layout_width="120sp"
+                android:layout_height="130sp"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/doorfourbutton"
+                android:text="@string/doorfouropen"
+                android:textColor="#ffffff" />
+        </LinearLayout>
+    </LinearLayout>
 
 </RelativeLayout>
