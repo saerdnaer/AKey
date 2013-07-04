@@ -3,6 +3,8 @@ package com.example.kisibox;
 import java.util.List;
 import java.util.Vector;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -31,19 +33,33 @@ public class KisiMain extends FragmentActivity {
 
 	}
 
+	@Override
+	public void onPause() { //sends user back to Login Screen if he didn't choose remember me 
+		SharedPreferences settings = getSharedPreferences("Config",
+				MODE_PRIVATE);
+		if (!settings.getBoolean("saved", false)) {
+			Intent loginScreen = new Intent(getApplicationContext(),
+					MainActivity.class);
+			startActivity(loginScreen);
+		}
+		super.onPause();
+	}
+
 	public void initializePager() {
-		//TODO: change from Test to real Data
+		// TODO: change from Test to real Data
 
+		List<Fragment> fragments = new Vector<Fragment>();
+		fragments.add(LocationOneDoor.newInstance("Home", "Römerstraße", "17",
+				"Front Door"));
 
-		List<Fragment> fragments = new Vector<Fragment>(); 
-		fragments.add(LocationOneDoor.newInstance("Home","Römerstraße","17","Front Door"));
-		
-		
-		fragments.add(LocationTwoDoors.newInstance("Meier","Hauptstraße","5","Front Door","Appartment Door"));
-		fragments.add(LocationThreeDoors.newInstance("Müller","Dorfstraße","23","Front Door","Garage Door","Cellar Door"));	
-		fragments.add(LocationFourDoors.newInstance("Uni","Boltzmannstraße","15","Front Door","Library","Room 02.07.23","Room 00.09.11"));		
-		
-		
+		fragments.add(LocationTwoDoors.newInstance("Meier", "Hauptstraße", "5",
+				"Front Door", "Appartment Door"));
+		fragments.add(LocationThreeDoors.newInstance("Müller", "Dorfstraße",
+				"23", "Front Door", "Garage Door", "Cellar Door"));
+		fragments.add(LocationFourDoors
+				.newInstance("Uni", "Boltzmannstraße", "15", "Front Door",
+						"Library", "Room 02.07.23", "Room 00.09.11"));
+
 		FragmentManager fm = getSupportFragmentManager();
 		ViewPager pager = (ViewPager) findViewById(R.id.pager);
 		MyFragmentPagerAdapter pagerAdapter = new MyFragmentPagerAdapter(fm,
