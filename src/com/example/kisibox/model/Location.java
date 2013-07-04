@@ -1,4 +1,4 @@
-package com.example.kisibox;
+package com.example.kisibox.model;
 
 import java.util.ArrayList;
 import java.util.List;

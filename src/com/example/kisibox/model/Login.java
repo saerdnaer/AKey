@@ -1,4 +1,4 @@
-package com.example.kisibox;
+package com.example.kisibox.model;
 
 public class Login {
 

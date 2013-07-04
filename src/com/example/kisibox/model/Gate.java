@@ -1,4 +1,4 @@
-package com.example.kisibox;
+package com.example.kisibox.model;
 
 import org.json.JSONException;
 import org.json.JSONObject;
