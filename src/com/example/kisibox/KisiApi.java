@@ -16,18 +16,19 @@ public class KisiApi extends RestApi {
 		String authToken = settings.getString("authToken", "");
 
 		this.BASE_URL = "https://kisi.de/";
-		this.urlSuffix = ".json" + ( !authToken.isEmpty() ? "?auth_token=" + authToken : "" );
+		this.urlSuffix = ".json" + ( KisiApi.authToken != null ? "?auth_token=" + KisiApi.authToken : "" );
 		this.rest.setHost("kisi.de");
 		//this.rest.setPort(80);
 		this.setUserAgent("AKey");
 
 		this.acceptAllSslCertificates();
+	public static void setAuthToken(String token) {
+		KisiApi.authToken = token;
 	}
-
 	// return class instance so we can chain calls
-	public KisiApi authorize(String email, String token) {
-		// email acts as the username and token as the password of the basic auth
-		this.rest.authorize(email, token);
+	public KisiApi authorize(String email, String password) {
+		//addParameter("user", JSONObject("{\"email\":\"" + email + "\",\"password\":\"" + password + "\"}"));
+		addParameter("user", "{\"email\":\"" + email + "\",\"password\":\"" + password + "\"}");
 		return this;
 	}
 	
