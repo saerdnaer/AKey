@@ -1,6 +1,10 @@
 package com.example.kisibox;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import com.example.kisibox.model.Login;
+import com.manavo.rest.RestCallback;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -44,7 +48,6 @@ public class MainActivity extends Activity implements OnClickListener {
 		settings = getSharedPreferences("Config", MODE_PRIVATE);
 
 		userNameField = (EditText) findViewById(R.id.editText1);
-
 		paswordField = (EditText) findViewById(R.id.editText2);
 
 	}
@@ -70,19 +73,43 @@ public class MainActivity extends Activity implements OnClickListener {
 	@Override
 	public void onClick(View arg0) {
 		// user touched the login botton: gather all informations and send to next view
+		
+		Toast.makeText(this, "logging in", Toast.LENGTH_LONG).show();
 
-		String userName = userNameField.getText().toString(); // get Text of
-		// EditTextfield
+		String email = userNameField.getText().toString(); // get Text of
+		String password = paswordField.getText().toString();
+		
+		KisiApi api = new KisiApi(this);
 
-		String pasword = paswordField.getText().toString();
+		api.authorize(email, password);
+		
+		final MainActivity activity = this;
+		
+		api.setCallback(new RestCallback() {
+			public void success(Object obj) {
+				JSONObject data = (JSONObject)obj;
 
-		loginData = new Login(userName, pasword);
+				try {
+					KisiApi.setAuthToken(data.getString("authentication_token"));
+					Toast.makeText(activity, "Login successful", Toast.LENGTH_LONG).show();
+					
+					Intent mainScreen = new Intent(getApplicationContext(), KisiMain.class);
+					startActivity(mainScreen);
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
+		// TODO set error handler
 
-		// Toast.makeText(this, userName+" "+pasword, Toast.LENGTH_LONG).show();
+		loginData = new Login(email, password);
 
-		CheckBox savePasword = (CheckBox) findViewById(R.id.checkBox1);
+		// Toast.makeText(this, userName+" "+password, Toast.LENGTH_LONG).show();
 
-		if (savePasword.isChecked()) {
+		CheckBox savePassword = (CheckBox) findViewById(R.id.checkBox1);
+
+		if (savePassword.isChecked()) {
 			Log.d("check", "saving");
 			saveLogin(loginData);
 
@@ -90,15 +117,7 @@ public class MainActivity extends Activity implements OnClickListener {
 			Log.d("check", "deleting");
 			deleteLogin();
 		}
-
-		login();
-
-	}
-
-	private void login() {
-		Toast.makeText(this, "logging in", Toast.LENGTH_LONG).show();
-		Intent mainScreen = new Intent(getApplicationContext(), KisiMain.class);
-		startActivity(mainScreen);
+		api.post("users/sign_in");
 	}
 
 	private void deleteLogin() {
