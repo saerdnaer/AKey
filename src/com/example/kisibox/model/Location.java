@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 //import com.google.android.maps.GeoPoint;
-import android.graphics.Point;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -27,7 +27,7 @@ public class Location {
 		try {
 			id 				= json.getInt("id");
 			name 			= json.getString("name");
-			gates 			= new ArrayList<Gate>();
+			gates 			= null;
 			updated_at 		= json.getString("updated_at"); // "2013-06-26T15:53:42Z"
 			/*location = new GeoPoint(
 						(int)(json.getDouble("latitude") *1000000.0), 
@@ -58,6 +58,9 @@ public class Location {
 	}
 
 	public List<Gate> getGates() {
+		if ( gates == null ) {
+			// TODO
+		}
 		return gates;
 	}
 
@@ -117,6 +120,19 @@ public class Location {
 
 	public int getOwnerId() {
 		return owner_id;
+	}
+
+	public void setGates(JSONArray data) {
+		gates = new ArrayList<Gate>();
+		try {
+			for (int i=0; i<data.length(); i++) {
+				Gate gate = new Gate(data.getJSONObject(i));
+				gates.add(gate);
+			}
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 
