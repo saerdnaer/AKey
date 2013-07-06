@@ -40,6 +40,18 @@ public class KisiMain extends FragmentActivity {
 
 	}
 
+	@Override
+	public void onPause() { //sends user back to Login Screen if he didn't choose remember me 
+		SharedPreferences settings = getSharedPreferences("Config",
+				MODE_PRIVATE);
+		if (!settings.getBoolean("saved", false)) {
+			Intent loginScreen = new Intent(getApplicationContext(),
+					MainActivity.class);
+			startActivity(loginScreen);
+		}
+		super.onPause();
+	}
+
 	public void initializePager() {
 		updateLocations();
 	}

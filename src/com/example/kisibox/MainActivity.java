@@ -53,6 +53,12 @@ public class MainActivity extends Activity implements OnClickListener {
 	}
 
 	@Override
+	public void onBackPressed() { //sends App to Background if Backbutton is pressed
+								  //prevents security issues
+		moveTaskToBack(true);
+	}
+
+	@Override
 	protected void onStart() {
 		Login savedLogin = getLogin();
 
@@ -124,6 +130,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		editor = settings.edit();
 		editor.remove("userName");
 		editor.remove("pasword");
+		editor.remove("saved");
 		editor.commit();
 	}
 
@@ -131,6 +138,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		editor = settings.edit();
 		editor.putString("userName", login.getUserName());
 		editor.putString("pasword", login.getPasword());
+		editor.putBoolean("saved", true);
 		editor.commit();
 	}
 
