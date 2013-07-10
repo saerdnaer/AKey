@@ -1,11 +1,8 @@
 package com.manavo.rest;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 import java.util.StringTokenizer;
 
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -33,7 +30,7 @@ public class RestApi {
 	
 	protected String loadingMessage;
 	protected ProgressDialog progressDialog;
-	private List<NameValuePair> parameters;
+	private HashMap<String, Object> parameters;
 	
 	protected int cachePolicy = RestCache.CachePolicy.IGNORE_CACHE;
 	
@@ -124,11 +121,11 @@ public class RestApi {
 		this.endpoint = null;
 		this.cachePolicy = RestCache.CachePolicy.IGNORE_CACHE;
 		
-		this.parameters = new ArrayList<NameValuePair>();
+		this.parameters = new HashMap<String, Object>();
 	}
 
 	public void addParameter(String name, Object value) {
-		this.parameters.add(new BasicNameValuePair(name, value.toString()));
+		this.parameters.put(name, value);
 	}
 	
 	public void setLoadingMessage(String message) {
@@ -139,7 +136,7 @@ public class RestApi {
 		this.loadingMessage = this.activity.getResources().getString(messageId);
 	}
 	
-	public List<NameValuePair> getParameters() {
+	public HashMap<String, Object> getParameters() {
 		return this.parameters;
 	}
 	

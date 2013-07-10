@@ -15,7 +15,9 @@ import java.security.NoSuchAlgorithmException;
 import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.zip.GZIPInputStream;
 
 import javax.net.ssl.SSLContext;
@@ -45,6 +47,7 @@ import org.apache.http.impl.auth.BasicScheme;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager;
 import org.apache.http.message.BasicHeader;
+import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.CoreProtocolPNames;
 import org.apache.http.params.HttpConnectionParams;
@@ -79,7 +82,7 @@ public class RestRequest {
 
 	private boolean useSsl = true;
 	
-	private List<NameValuePair> data;
+	private Map<String, Object> data;
 	
 	private String userAgent = null;
     private HttpContext requestContext;
@@ -137,7 +140,7 @@ public class RestRequest {
 		this.acceptAllSslCertificates = true;
 	}
 	
-	public void setData(List<NameValuePair> data) {
+	public void setData(Map<String, Object> data) {
 		this.data = data;
 	}
 	
@@ -153,8 +156,8 @@ public class RestRequest {
 			} else { // if query sting parameter already exist, then keep adding to them
 				url += "&";
 			}
-			for (int i=0; i<this.data.size(); i++) {
-				NameValuePair p = this.data.get(i);
+			for ( Map.Entry<String, Object> item : this.data.entrySet() ) {
+				NameValuePair p = new BasicNameValuePair(item.getKey(), item.getValue().toString());
 				try {
 					url += p.getName() + "=" + URLEncoder.encode(p.getValue(), "utf-8") + "&";
 				} catch (UnsupportedEncodingException e) {
@@ -184,13 +187,20 @@ public class RestRequest {
 		this.prepareRequest(httpDelete);
 	}
 	
-	protected HttpEntity prepareData(List<NameValuePair> nameValuePairs) {
+	protected static List<NameValuePair> mapToPairs(Map<String, Object> map) {
+		List<NameValuePair> pairs = new ArrayList<NameValuePair>();
+		for (Map.Entry<String, ?> p : map.entrySet() ) {
+			pairs.add(new BasicNameValuePair(p.getKey(), p.getValue().toString()));
+		}
+		return pairs;
+	}
+	
+	protected HttpEntity prepareData(Map<String, Object> map) {
         if (this.contentType != null && this.contentType.equalsIgnoreCase("application/json")) {
             JSONObject data = new JSONObject();
             try {
-                for (int i=0; i<nameValuePairs.size(); i++) {
-                    NameValuePair p = nameValuePairs.get(i);
-                    data.put(p.getName(), p.getValue());
+                for (Map.Entry<String, ?> p : map.entrySet() ) {
+                    data.put(p.getKey(), p.getValue());
                 }
 
                 Log.e("RestRequestSending", data.toString());
@@ -207,7 +217,8 @@ public class RestRequest {
             }
         } else {
             try {
-                return new UrlEncodedFormEntity(nameValuePairs);
+            	
+                return new UrlEncodedFormEntity(mapToPairs(map));
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
                 return null;

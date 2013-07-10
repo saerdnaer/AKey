@@ -108,7 +108,7 @@ public class RestCache {
 	}
 	
 	private static String getRequestHash(RestApi api) {
-		List<NameValuePair> params = api.getParameters();
+		List<NameValuePair> params = RestRequest.mapToPairs(api.getParameters());
 		
 		String query = api.endpoint;
 		
