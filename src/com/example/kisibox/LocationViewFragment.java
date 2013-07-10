@@ -75,6 +75,7 @@ public class LocationViewFragment extends Fragment {
 				@Override
 				public void onClick(View v) {
 					Log.d("pressed", "opening door " + String.valueOf(gate.getName()));
+					gate.open(getActivity());
 				}
 			});
 		}

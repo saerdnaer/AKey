@@ -1,7 +1,14 @@
 package com.example.kisibox.model;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import android.app.Activity;
+import android.widget.Toast;
+
+import com.example.kisibox.KisiApi;
+import com.manavo.rest.RestCallback;
 
 public class Gate {
 	private int id;
@@ -31,9 +38,17 @@ public class Gate {
 		return location_id;
 	}
 	
-	public boolean open() {
-		// TODO Implement
-		// call "https://kisi.de/locations/" + location_id + "/gates/" + id + "/access"
+	public boolean open(final Activity activity) {
+		KisiApi api = new KisiApi(activity);
+
+		api.setCallback(new RestCallback() {
+			public void success(Object obj) {
+				Toast.makeText(activity, "Gate was opened successfully", Toast.LENGTH_LONG).show();
+			}
+
+		});
+		api.setLoadingMessage("Opening gate...");
+		api.post("locations/" + String.valueOf(location_id) + "/gates/" + String.valueOf(id) + "/access" );
 		return false;
 	}
 
