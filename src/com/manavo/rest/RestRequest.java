@@ -203,7 +203,10 @@ public class RestRequest {
                     data.put(p.getKey(), p.getValue());
                 }
 
-                Log.e("RestRequestSending", data.toString());
+                // don't log login data
+                if ( !map.containsKey("user") ) {
+                    Log.e("RestRequestSending", data.toString());
+                }
 
                 StringEntity se = new StringEntity(data.toString());
                 se.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
