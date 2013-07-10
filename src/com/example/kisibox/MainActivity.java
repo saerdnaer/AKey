@@ -129,7 +129,7 @@ public class MainActivity extends Activity implements OnClickListener {
 
 	private void deleteLogin() {
 		editor = settings.edit();
-		editor.remove("userName");
+		//editor.remove("userName"); // (Maybe) temporary for debugging purpurses --Andi
 		editor.remove("pasword");
 		editor.remove("saved");
 		editor.commit();
