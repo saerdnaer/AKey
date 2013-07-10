@@ -80,7 +80,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	public void onClick(View arg0) {
 		// user touched the login botton: gather all informations and send to next view
 		
-		Toast.makeText(this, "logging in", Toast.LENGTH_LONG).show();
+		//Toast.makeText(this, "logging in", Toast.LENGTH_LONG).show();
 
 		String email = userNameField.getText().toString(); // get Text of
 		String password = paswordField.getText().toString();
@@ -88,6 +88,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		KisiApi api = new KisiApi(this);
 
 		api.authorize(email, password);
+		api.setLoadingMessage("Logging in...");
 		
 		final MainActivity activity = this;
 		
