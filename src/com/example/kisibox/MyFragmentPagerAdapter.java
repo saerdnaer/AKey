@@ -2,6 +2,8 @@ package com.example.kisibox;
 
 import java.util.List;
 
+import com.example.kisibox.model.Location;
+
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -32,7 +34,9 @@ public class MyFragmentPagerAdapter extends FragmentPagerAdapter {
 	}
 	
 	@Override
-    public CharSequence getPageTitle(int num) {
-        return getItem(num).getArguments().getString("Name");
-    }
+	public CharSequence getPageTitle(int num) {
+		int location_id = getItem(num).getArguments().getInt("location_id");
+		Location l = ((KisiMain) getItem(num).getActivity()).locations.get(location_id);
+		return l.getName();
+	}
 }

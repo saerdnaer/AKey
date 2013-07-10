@@ -39,7 +39,8 @@ public class LocationViewFragment extends Fragment {
 		if (container == null) {
 			return null;
 		}
-		final Location l = ((KisiMain)getActivity()).locations.get(getArguments().getInt("location_id"));
+		int location_id = getArguments().getInt("location_id");
+		final Location l = ((KisiMain)getActivity()).locations.get(location_id);
 		
 		layout = (RelativeLayout) inflater.inflate(R.layout.locationtwodoors, container, false);
 
@@ -63,12 +64,12 @@ public class LocationViewFragment extends Fragment {
 	}
 	
 	public void setupButtons(List<Gate> gates) {
-		int[] buttons = {R.id.buttonTwoDoorOne,R.id.buttonTwoDoorTwo};
+		int[] buttons = {R.id.buttonTwoDoorOne, R.id.buttonTwoDoorTwo};
 		
 		int i = 0;
 		for ( final Gate gate : gates ) {
 			final Button button = (Button) layout.findViewById(buttons[i++]);
-			button.setText(getArguments().getString(gate.getName()));
+			button.setText(gate.getName());
 			
 			button.setOnClickListener( new OnClickListener() {
 				@Override
@@ -76,6 +77,11 @@ public class LocationViewFragment extends Fragment {
 					Log.d("pressed", "opening door " + String.valueOf(gate.getName()));
 				}
 			});
+		}
+		// hide unused buttons
+		for ( ; i < buttons.length; i++) {
+			Button button = (Button) layout.findViewById(buttons[i]);
+			button.setVisibility(View.GONE);
 		}
 	}
 }
