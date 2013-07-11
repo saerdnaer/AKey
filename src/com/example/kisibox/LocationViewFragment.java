@@ -68,6 +68,10 @@ public class LocationViewFragment extends Fragment {
 		
 		int i = 0;
 		for ( final Gate gate : gates ) {
+			if ( i >= buttons.length ) {
+				Log.d("waring", "more gates then buttons!");
+				break;
+			}
 			final Button button = (Button) layout.findViewById(buttons[i++]);
 			button.setText(gate.getName());
 			
