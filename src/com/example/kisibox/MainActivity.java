@@ -6,10 +6,19 @@ import org.json.JSONObject;
 import com.example.kisibox.model.Login;
 import com.manavo.rest.RestCallback;
 
+import com.example.kisibox.R.drawable;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.Typeface;
+import android.text.Html;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -18,6 +27,8 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends Activity implements OnClickListener {
@@ -25,6 +36,10 @@ public class MainActivity extends Activity implements OnClickListener {
 	private Button loginButton;
 	private EditText userNameField;
 	private EditText paswordField;
+
+	private TextView newUser;
+	private TextView forgotPw;
+	private TextView slogan;
 
 	private SharedPreferences settings;
 	private SharedPreferences.Editor editor;
@@ -35,26 +50,40 @@ public class MainActivity extends Activity implements OnClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
-
+		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_main);
-
-		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE,
-				R.layout.window_title);
 
 		loginButton = (Button) findViewById(R.id.button1);
 		loginButton.setOnClickListener(this);
+		
+		loginButton.getBackground().setAlpha(185);
+		
 
 		settings = getSharedPreferences("Config", MODE_PRIVATE);
 
 		userNameField = (EditText) findViewById(R.id.editText1);
 		paswordField = (EditText) findViewById(R.id.editText2);
+		paswordField.setTypeface(Typeface.DEFAULT);
 
+		newUser = (TextView) findViewById(R.id.textView1);
+
+		newUser.setText(Html.fromHtml("New? "
+				+ "<a href=\"https://www.kisi.de/users/sign_up\">Get started on our website</a> "));
+		newUser.setMovementMethod(LinkMovementMethod.getInstance());
+
+		slogan = (TextView) findViewById(R.id.Slogan);
+		Typeface font = Typeface.createFromAsset(getAssets(), "Roboto-Light.ttf");
+		slogan.setTypeface(font);
+		
+		forgotPw = (TextView) findViewById(R.id.forgot);
+		forgotPw.setText(Html.fromHtml("<a href=\"https://www.kisi.de/users/password/new\">Forgot your password?</a> "));
+		forgotPw.setMovementMethod(LinkMovementMethod.getInstance());
 	}
 
 	@Override
-	public void onBackPressed() { //sends App to Background if Backbutton is pressed
-								  //prevents security issues
+	public void onBackPressed() { // sends App to Background if Backbutton is
+									// pressed
+									// prevents security issues
 		moveTaskToBack(true);
 	}
 
