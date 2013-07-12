@@ -76,7 +76,7 @@ public class LocationViewFragment extends Fragment {
 				break;
 			}
 			final Button button = (Button) layout.findViewById(buttons[i++]);
-			button.setText(gate.getName());
+			button.setText("Unlock " + gate.getName());
 			button.setVisibility(View.VISIBLE);
 			
 			button.setOnClickListener( new OnClickListener() {
