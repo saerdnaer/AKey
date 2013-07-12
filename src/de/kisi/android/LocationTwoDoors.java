@@ -1,4 +1,4 @@
-package com.example.kisibox;
+package de.kisi.android;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -11,12 +11,12 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-public class LocationThreeDoors extends Fragment {
-	
+public class LocationTwoDoors extends Fragment {
+
 	// TODO: change later to Location/Gate class
-	static LocationThreeDoors newInstance(String name, String streetName,
-			String streetNumber, String gate1, String gate2, String gate3) {
-		LocationThreeDoors f = new LocationThreeDoors();
+	static LocationTwoDoors newInstance(String name, String streetName,
+			String streetNumber, String gate1, String gate2) {
+		LocationTwoDoors f = new LocationTwoDoors();
 
 		Bundle args = new Bundle();
 		args.putString("Name", name);
@@ -24,7 +24,6 @@ public class LocationThreeDoors extends Fragment {
 		args.putString("StreetNumber", streetNumber);
 		args.putString("Door1", gate1);
 		args.putString("Door2", gate2);
-		args.putString("Door3", gate3);
 		f.setArguments(args);
 
 		return f;
@@ -36,23 +35,17 @@ public class LocationThreeDoors extends Fragment {
 			return null;
 		}
 		RelativeLayout mRelativeLayout = (RelativeLayout) inflater.inflate(
-				R.layout.locationthreedoors, container, false);
+				R.layout.locationtwodoors, container, false);
 
 		final Button buttonOne = (Button) mRelativeLayout
-				.findViewById(R.id.buttonThreeDoorOne);
-		
+				.findViewById(R.id.buttonTwoDoorOne);
+
 		buttonOne.setText(getArguments().getString("Door1"));
 
 		final Button buttonTwo = (Button) mRelativeLayout
-				.findViewById(R.id.buttonThreeDoorTwo);
-		
+				.findViewById(R.id.buttonTwoDoorTwo);
+
 		buttonTwo.setText(getArguments().getString("Door2"));
-
-		
-		final Button buttonThree = (Button) mRelativeLayout.findViewById(R.id.buttonThreeDoorThree);
-		
-		buttonThree.setText(getArguments().getString("Door3"));
-
 
 		OnClickListener listener = new OnClickListener() {
 
@@ -65,20 +58,18 @@ public class LocationThreeDoors extends Fragment {
 				if (v == buttonTwo) {
 					Log.d("pressed", "opening door two");
 				}
-				if (v==buttonThree){
-					Log.d("pressed","opening door three");
-				}
 			}
 
 		};
 
 		buttonOne.setOnClickListener(listener);
 		buttonTwo.setOnClickListener(listener);
-		buttonThree.setOnClickListener(listener);
 
-		TextView adress = (TextView) mRelativeLayout.findViewById(R.id.textViewThreeDoors);
-		adress.setText(getArguments().getString("StreetName")+" "+getArguments().getString("StreetNumber"));
-		
+		TextView adress = (TextView) mRelativeLayout
+				.findViewById(R.id.textViewTwoDoors);
+		adress.setText(getArguments().getString("StreetName") + " "
+				+ getArguments().getString("StreetNumber"));
+
 		return mRelativeLayout;
 	}
 }

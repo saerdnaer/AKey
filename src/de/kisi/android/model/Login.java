@@ -1,4 +1,4 @@
-package com.example.kisibox.model;
+package de.kisi.android.model;
 
 public class Login {
 

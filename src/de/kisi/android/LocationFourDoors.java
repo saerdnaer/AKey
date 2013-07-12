@@ -1,4 +1,4 @@
-package com.example.kisibox;
+package de.kisi.android;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

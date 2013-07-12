@@ -1,4 +1,4 @@
-package com.example.kisibox;
+package de.kisi.android;
 
 import java.util.List;
 import java.util.Vector;
@@ -6,8 +6,9 @@ import java.util.Vector;
 import org.json.JSONArray;
 import org.json.JSONException;
 
-import com.example.kisibox.model.Location;
 import com.manavo.rest.RestCallback;
+
+import de.kisi.android.model.Location;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -82,7 +83,7 @@ public class KisiMain extends FragmentActivity {
 			for (int i=0; i<locations_json.length(); i++) {
 				Location location = new Location(locations_json.getJSONObject(i));
 				locations.put(location.getId(), location);
-				fragments.add(LocationViewFragment.newInstance(location.getId()));
+				fragments.add(LocationViewFragment.newInstance(i));
 			}
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block

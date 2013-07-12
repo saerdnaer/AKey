@@ -1,12 +1,13 @@
-package com.example.kisibox;
+package de.kisi.android;
 
 import java.util.List;
 
-import com.example.kisibox.model.Location;
+import de.kisi.android.model.Location;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.util.SparseArray;
 
 public class MyFragmentPagerAdapter extends FragmentPagerAdapter {
 
@@ -35,8 +36,10 @@ public class MyFragmentPagerAdapter extends FragmentPagerAdapter {
 	
 	@Override
 	public CharSequence getPageTitle(int num) {
-		int location_id = getItem(num).getArguments().getInt("location_id");
-		Location l = ((KisiMain) getItem(num).getActivity()).locations.get(location_id);
+		//int location_id = getItem(num).getArguments().getInt("location_id");
+		SparseArray<Location> locations = ((KisiMain) getItem(0).getActivity()).locations;
+		//Location l = locations.get(location_id);
+		Location l = locations.valueAt(num);
 		return l.getName();
 	}
 }

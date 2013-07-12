@@ -1,4 +1,4 @@
-package com.example.kisibox;
+package de.kisi.android;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -21,11 +21,11 @@ public class MyFragment extends Fragment{
 	}
 	
 	
-	 @Override
-	    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-	        View v = inflater.inflate(R.layout.fragment_main_dummy, container,false);
-	        TextView tv = (TextView ) v.findViewById(R.id.section_label);
-	        tv.setText("You are viewing the page #" + mCurrentPage + "\n\n" + "Swipe Horizontally left / right");
-	        return v;
-	    }
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		View v = inflater.inflate(R.layout.fragment_main_dummy, container,false);
+		TextView tv = (TextView ) v.findViewById(R.id.section_label);
+		tv.setText("You are viewing the page #" + mCurrentPage + "\n\n" + "Swipe Horizontally left / right");
+		return v;
+	}
 }

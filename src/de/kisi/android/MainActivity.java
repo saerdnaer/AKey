@@ -1,21 +1,16 @@
-package com.example.kisibox;
+package de.kisi.android;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.example.kisibox.model.Login;
 import com.manavo.rest.RestCallback;
 
-import com.example.kisibox.R.drawable;
+import de.kisi.android.model.Login;
 
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
@@ -27,7 +22,6 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 

@@ -1,4 +1,4 @@
-package com.example.kisibox.model;
+package de.kisi.android.model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,11 +33,17 @@ public class Location {
 						(int)(json.getDouble("latitude") *1000000.0), 
 						(int)(json.getDouble("longitude")*1000000.0))
 			);*/
-			latitude 		= json.getDouble("latitude");
-			longitude 		= json.getDouble("longitude");
+			try {
+				latitude 		= json.getDouble("latitude");
+				longitude 		= json.getDouble("longitude");
+			}
+			catch (JSONException e) {
+				latitude = 0;
+				longitude = 0;
+			}
 			
 			streetName 		= json.getString("street_name");
-			streetNumber	= json.getString("street_name");
+			streetNumber	= json.getString("street_number");
 			zip 			= json.getString("zip");
 			city 			= json.getString("city");
 			country 		= json.getString("country");

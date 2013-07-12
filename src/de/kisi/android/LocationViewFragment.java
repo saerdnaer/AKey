@@ -1,12 +1,13 @@
-package com.example.kisibox;
+package de.kisi.android;
 
 import java.util.List;
 
 import org.json.JSONArray;
 
-import com.example.kisibox.model.Gate;
-import com.example.kisibox.model.Location;
 import com.manavo.rest.RestCallback;
+
+import de.kisi.android.model.Gate;
+import de.kisi.android.model.Location;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -18,17 +19,18 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class LocationViewFragment extends Fragment {
 
 	private RelativeLayout layout;
 	
-	static LocationViewFragment newInstance(int location_id) {
+	static LocationViewFragment newInstance(int index) {
 		// Fragments must not have a custom constructor 
 		LocationViewFragment f = new LocationViewFragment();
 
 		Bundle args = new Bundle();
-		args.putInt("location_id", location_id);
+		args.putInt("index", index);
 		f.setArguments(args);
 
 		return f;
@@ -39,8 +41,8 @@ public class LocationViewFragment extends Fragment {
 		if (container == null) {
 			return null;
 		}
-		int location_id = getArguments().getInt("location_id");
-		final Location l = ((KisiMain)getActivity()).locations.get(location_id);
+		int index = getArguments().getInt("index");
+		final Location l = ((KisiMain)getActivity()).locations.valueAt(index);
 		
 		layout = (RelativeLayout) inflater.inflate(R.layout.locationtwodoors, container, false);
 
@@ -58,6 +60,7 @@ public class LocationViewFragment extends Fragment {
 			}
 
 		});
+		api.setLoadingMessage(null);
 		api.get("locations/" + String.valueOf(l.getId()) + "/gates");
 		
 		return layout;
@@ -74,19 +77,24 @@ public class LocationViewFragment extends Fragment {
 			}
 			final Button button = (Button) layout.findViewById(buttons[i++]);
 			button.setText(gate.getName());
+			button.setVisibility(View.VISIBLE);
 			
 			button.setOnClickListener( new OnClickListener() {
 				@Override
 				public void onClick(View v) {
 					Log.d("pressed", "opening door " + String.valueOf(gate.getName()));
-					gate.open(getActivity());
+					KisiApi api = new KisiApi(getActivity());
+
+					api.setCallback(new RestCallback() {
+						public void success(Object obj) {
+							Toast.makeText(getActivity(), "Gate was opened successfully", Toast.LENGTH_LONG).show();
+						}
+
+					});
+					api.setLoadingMessage("Opening gate...");
+					api.post("locations/" + String.valueOf(gate.getLocationId()) + "/gates/" + String.valueOf(gate.getId()) + "/access" );
 				}
 			});
-		}
-		// hide unused buttons
-		for ( ; i < buttons.length; i++) {
-			Button button = (Button) layout.findViewById(buttons[i]);
-			button.setVisibility(View.GONE);
 		}
 	}
 }
