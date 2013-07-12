@@ -37,6 +37,7 @@ public class MyFragmentPagerAdapter extends FragmentPagerAdapter {
 	@Override
 	public CharSequence getPageTitle(int num) {
 		//int location_id = getItem(num).getArguments().getInt("location_id");
+		// TODO is there a nicer way to get the Activity? --Andi
 		SparseArray<Location> locations = ((KisiMain) getItem(0).getActivity()).locations;
 		//Location l = locations.get(location_id);
 		Location l = locations.valueAt(num);

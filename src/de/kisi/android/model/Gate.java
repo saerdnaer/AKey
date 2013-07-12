@@ -2,7 +2,7 @@ package de.kisi.android.model;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
+ 
 public class Gate {
 	private int id;
 	private String name;
