@@ -49,19 +49,24 @@ public class LocationViewFragment extends Fragment {
 		TextView adress = (TextView) layout.findViewById(R.id.textViewTwoDoors);
 		adress.setText(l.getAddress());
 
-		KisiApi api = new KisiApi(this.getActivity());
-
-		api.setCallback(new RestCallback() {
-			public void success(Object obj) {
-				JSONArray data = (JSONArray)obj;
-
-				l.setGates(data);
-				setupButtons(l.getGates());
-			}
-
-		});
-		api.setLoadingMessage(null);
-		api.get("locations/" + String.valueOf(l.getId()) + "/gates");
+		if ( l.getGates() == null ) {
+			KisiApi api = new KisiApi(this.getActivity());
+	
+			api.setCallback(new RestCallback() {
+				public void success(Object obj) {
+					JSONArray data = (JSONArray)obj;
+	
+					l.setGates(data);
+					setupButtons(l.getGates());
+				}
+	
+			});
+			api.setLoadingMessage(null);
+			api.get("locations/" + String.valueOf(l.getId()) + "/gates");
+		}
+		else {
+			setupButtons(l.getGates());
+		}
 		
 		return layout;
 	}
@@ -95,6 +100,11 @@ public class LocationViewFragment extends Fragment {
 					api.post("locations/" + String.valueOf(gate.getLocationId()) + "/gates/" + String.valueOf(gate.getId()) + "/access" );
 				}
 			});
+		}
+		// set unused buttons to gone, so the automatic layout works
+		for ( ; i < buttons.length; i++) {
+			Button button = (Button) layout.findViewById(buttons[i]);
+			button.setVisibility(View.GONE);
 		}
 	}
 }
