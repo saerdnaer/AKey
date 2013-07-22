@@ -80,10 +80,13 @@ public class KisiMain extends FragmentActivity {
 		locations = new SparseArray<Location>();
 		
 		try {
-			for (int i=0; i<locations_json.length(); i++) {
+			for (int i=0, j=0; i<locations_json.length(); i++) {
 				Location location = new Location(locations_json.getJSONObject(i));
-				locations.put(location.getId(), location);
-				fragments.add(LocationViewFragment.newInstance(i));
+				// The API returned some locations twice, so let's check if we already have it or not
+				if ( locations.indexOfKey(location.getId()) < 0) {
+					locations.put(location.getId(), location);
+					fragments.add(LocationViewFragment.newInstance(j++));
+				}
 			}
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
