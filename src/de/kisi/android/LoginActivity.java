@@ -25,7 +25,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends Activity implements OnClickListener {
+public class LoginActivity extends Activity implements OnClickListener {
 
 	private Button loginButton;
 	private EditText userNameField;
@@ -46,6 +46,8 @@ public class MainActivity extends Activity implements OnClickListener {
 
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_main);
+		
+		KisiApi.setAuthToken(null);
 
 		loginButton = (Button) findViewById(R.id.button1);
 		loginButton.setOnClickListener(this);
@@ -113,7 +115,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		api.authorize(email, password);
 		api.setLoadingMessage("Logging in...");
 		
-		final MainActivity activity = this;
+		final LoginActivity activity = this;
 		
 		api.setCallback(new RestCallback() {
 			public void success(Object obj) {

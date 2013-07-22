@@ -49,7 +49,7 @@ public class KisiMain extends FragmentActivity {
 				MODE_PRIVATE);
 		if (!settings.getBoolean("saved", false)) {
 			Intent loginScreen = new Intent(getApplicationContext(),
-					MainActivity.class);
+					LoginActivity.class);
 			startActivity(loginScreen);
 		}
 		super.onPause();
