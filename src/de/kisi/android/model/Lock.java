@@ -3,13 +3,13 @@ package de.kisi.android.model;
 import org.json.JSONException;
 import org.json.JSONObject;
  
-public class Gate {
+public class Lock {
 	private int id;
 	private String name;
 	private int location_id;
 	private String updated_at;
 	
-	public Gate(JSONObject json) {
+	public Lock(JSONObject json) {
 		try {
 			id = json.getInt("id");
 			name = json.getString("name");

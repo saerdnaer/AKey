@@ -6,7 +6,7 @@ import org.json.JSONArray;
 
 import com.manavo.rest.RestCallback;
 
-import de.kisi.android.model.Gate;
+import de.kisi.android.model.Lock;
 import de.kisi.android.model.Location;
 
 import android.os.Bundle;
@@ -49,55 +49,55 @@ public class LocationViewFragment extends Fragment {
 		TextView adress = (TextView) layout.findViewById(R.id.textViewTwoDoors);
 		adress.setText(l.getAddress());
 
-		if ( l.getGates() == null ) {
+		if ( l.getLocks() == null ) {
 			KisiApi api = new KisiApi(this.getActivity());
 	
 			api.setCallback(new RestCallback() {
 				public void success(Object obj) {
 					JSONArray data = (JSONArray)obj;
 	
-					l.setGates(data);
-					setupButtons(l.getGates());
+					l.setLocks(data);
+					setupButtons(l.getLocks());
 				}
 	
 			});
 			api.setLoadingMessage(null);
-			api.get("locations/" + String.valueOf(l.getId()) + "/gates");
+			api.get("locations/" + String.valueOf(l.getId()) + "/locks");
 		}
 		else {
-			setupButtons(l.getGates());
+			setupButtons(l.getLocks());
 		}
 		
 		return layout;
 	}
 	
-	public void setupButtons(List<Gate> gates) {
+	public void setupButtons(List<Lock> locks) {
 		int[] buttons = {R.id.buttonTwoDoorOne, R.id.buttonTwoDoorTwo};
 		
 		int i = 0;
-		for ( final Gate gate : gates ) {
+		for ( final Lock lock : locks ) {
 			if ( i >= buttons.length ) {
-				Log.d("waring", "more gates then buttons!");
+				Log.d("waring", "more locks then buttons!");
 				break;
 			}
 			final Button button = (Button) layout.findViewById(buttons[i++]);
-			button.setText("Unlock " + gate.getName());
+			button.setText("Unlock " + lock.getName());
 			button.setVisibility(View.VISIBLE);
 			
 			button.setOnClickListener( new OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					Log.d("pressed", "opening door " + String.valueOf(gate.getName()));
+					Log.d("pressed", "opening door " + String.valueOf(lock.getName()));
 					KisiApi api = new KisiApi(getActivity());
 
 					api.setCallback(new RestCallback() {
 						public void success(Object obj) {
-							Toast.makeText(getActivity(), "Gate was opened successfully", Toast.LENGTH_LONG).show();
+							Toast.makeText(getActivity(), "Lock was opened successfully", Toast.LENGTH_LONG).show();
 						}
 
 					});
-					api.setLoadingMessage("Opening gate...");
-					api.post("locations/" + String.valueOf(gate.getLocationId()) + "/gates/" + String.valueOf(gate.getId()) + "/access" );
+					api.setLoadingMessage("Opening lock...");
+					api.post("locations/" + String.valueOf(lock.getLocationId()) + "/locks/" + String.valueOf(lock.getId()) + "/access" );
 				}
 			});
 		}

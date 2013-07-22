@@ -12,7 +12,7 @@ import org.json.JSONObject;
 public class Location {
 	private int id;
 	private String name;
-	private List<Gate> gates;
+	private List<Lock> locks;
 	private String updated_at;
 	//private GeoPoint location;
 	private double latitude, longitude;
@@ -27,7 +27,7 @@ public class Location {
 		try {
 			id 				= json.getInt("id");
 			name 			= json.getString("name");
-			gates 			= null;
+			locks 			= null;
 			updated_at 		= json.getString("updated_at"); // "2013-06-26T15:53:42Z"
 			/*location = new GeoPoint(
 						(int)(json.getDouble("latitude") *1000000.0), 
@@ -63,11 +63,11 @@ public class Location {
 		return name;
 	}
 
-	public List<Gate> getGates() {
-		if ( gates == null ) {
+	public List<Lock> getLocks() {
+		if ( locks == null ) {
 			// TODO
 		}
-		return gates;
+		return locks;
 	}
 
 	public String getUpdatedAt() {
@@ -128,12 +128,12 @@ public class Location {
 		return owner_id;
 	}
 
-	public void setGates(JSONArray data) {
-		gates = new ArrayList<Gate>();
+	public void setLocks(JSONArray data) {
+		locks = new ArrayList<Lock>();
 		try {
 			for (int i=0; i<data.length(); i++) {
-				Gate gate = new Gate(data.getJSONObject(i));
-				gates.add(gate);
+				Lock lock = new Lock(data.getJSONObject(i));
+				locks.add(lock);
 			}
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
