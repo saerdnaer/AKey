@@ -37,7 +37,7 @@ public class KisiMain extends FragmentActivity {
 
 		TextView title = (TextView) findViewById(R.id.title);
 
-		title.setText("Your Locations");
+		title.setText("Your places");
 
 		initializePager();
 
@@ -70,7 +70,7 @@ public class KisiMain extends FragmentActivity {
 			}
 
 		});
-		api.get("locations");
+		api.get("places");
 		
 	}
 	

@@ -62,7 +62,7 @@ public class LocationViewFragment extends Fragment {
 	
 			});
 			api.setLoadingMessage(null);
-			api.get("locations/" + String.valueOf(l.getId()) + "/locks");
+			api.get("places/" + String.valueOf(l.getId()) + "/locks");
 		}
 		else {
 			setupButtons(l.getLocks());
@@ -97,7 +97,7 @@ public class LocationViewFragment extends Fragment {
 
 					});
 					api.setLoadingMessage("Opening lock...");
-					api.post("locations/" + String.valueOf(lock.getLocationId()) + "/locks/" + String.valueOf(lock.getId()) + "/access" );
+					api.post("places/" + String.valueOf(lock.getLocationId()) + "/locks/" + String.valueOf(lock.getId()) + "/access" );
 				}
 			});
 		}
