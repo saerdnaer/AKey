@@ -7,7 +7,7 @@ import org.json.JSONArray;
 import com.manavo.rest.RestCallback;
 
 import de.kisi.android.model.Lock;
-import de.kisi.android.model.Location;
+import de.kisi.android.model.Place;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -21,13 +21,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class LocationViewFragment extends Fragment {
+public class PlaceViewFragment extends Fragment {
 
 	private RelativeLayout layout;
 	
-	static LocationViewFragment newInstance(int index) {
+	static PlaceViewFragment newInstance(int index) {
 		// Fragments must not have a custom constructor 
-		LocationViewFragment f = new LocationViewFragment();
+		PlaceViewFragment f = new PlaceViewFragment();
 
 		Bundle args = new Bundle();
 		args.putInt("index", index);
@@ -42,7 +42,7 @@ public class LocationViewFragment extends Fragment {
 			return null;
 		}
 		int index = getArguments().getInt("index");
-		final Location l = ((KisiMain)getActivity()).locations.valueAt(index);
+		final Place l = ((KisiMain)getActivity()).locations.valueAt(index);
 		
 		layout = (RelativeLayout) inflater.inflate(R.layout.locationtwodoors, container, false);
 
@@ -93,11 +93,12 @@ public class LocationViewFragment extends Fragment {
 					api.setCallback(new RestCallback() {
 						public void success(Object obj) {
 							Toast.makeText(getActivity(), "Lock was opened successfully", Toast.LENGTH_LONG).show();
+							Log.i("Lock", obj.toString());
 						}
 
 					});
 					api.setLoadingMessage("Opening lock...");
-					api.post("places/" + String.valueOf(lock.getLocationId()) + "/locks/" + String.valueOf(lock.getId()) + "/access" );
+					api.post("places/" + String.valueOf(lock.getPlaceId()) + "/locks/" + String.valueOf(lock.getId()) + "/access" );
 				}
 			});
 		}

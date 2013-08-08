@@ -8,7 +8,7 @@ import org.json.JSONException;
 
 import com.manavo.rest.RestCallback;
 
-import de.kisi.android.model.Location;
+import de.kisi.android.model.Place;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -24,7 +24,7 @@ import android.widget.TextView;
 
 public class KisiMain extends FragmentActivity {
 
-	public SparseArray<Location> locations;
+	public SparseArray<Place> locations;
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
@@ -77,15 +77,15 @@ public class KisiMain extends FragmentActivity {
 	private void setupView(JSONArray locations_json) {
 		
 		List<Fragment> fragments = new Vector<Fragment>(); 
-		locations = new SparseArray<Location>();
+		locations = new SparseArray<Place>();
 		
 		try {
 			for (int i=0, j=0; i<locations_json.length(); i++) {
-				Location location = new Location(locations_json.getJSONObject(i));
+				Place location = new Place(locations_json.getJSONObject(i));
 				// The API returned some locations twice, so let's check if we already have it or not
 				if ( locations.indexOfKey(location.getId()) < 0) {
 					locations.put(location.getId(), location);
-					fragments.add(LocationViewFragment.newInstance(j++));
+					fragments.add(PlaceViewFragment.newInstance(j++));
 				}
 			}
 		} catch (JSONException e) {

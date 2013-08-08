@@ -9,7 +9,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Location {
+public class Place {
 	private int id;
 	private String name;
 	private List<Lock> locks;
@@ -23,7 +23,7 @@ public class Location {
 	private int owner_id;
 
 	
-	public Location(JSONObject json) {
+	public Place(JSONObject json) {
 		try {
 			id 				= json.getInt("id");
 			name 			= json.getString("name");

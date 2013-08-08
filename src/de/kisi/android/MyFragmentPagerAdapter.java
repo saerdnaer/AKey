@@ -2,7 +2,7 @@ package de.kisi.android;
 
 import java.util.List;
 
-import de.kisi.android.model.Location;
+import de.kisi.android.model.Place;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -38,9 +38,9 @@ public class MyFragmentPagerAdapter extends FragmentPagerAdapter {
 	public CharSequence getPageTitle(int num) {
 		//int location_id = getItem(num).getArguments().getInt("location_id");
 		// TODO is there a nicer way to get the Activity? --Andi
-		SparseArray<Location> locations = ((KisiMain) getItem(0).getActivity()).locations;
+		SparseArray<Place> locations = ((KisiMain) getItem(0).getActivity()).locations;
 		//Location l = locations.get(location_id);
-		Location l = locations.valueAt(num);
+		Place l = locations.valueAt(num);
 		return l.getName();
 	}
 }
