@@ -19,7 +19,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.util.SparseArray;
 import android.view.Window;
-import android.widget.TextView;
 
 
 public class KisiMain extends FragmentActivity {

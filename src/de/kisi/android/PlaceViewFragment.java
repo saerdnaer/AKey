@@ -21,7 +21,6 @@ import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 public class PlaceViewFragment extends Fragment {
@@ -125,7 +124,7 @@ public class PlaceViewFragment extends Fragment {
 		final Button currentButton = button;
 		
 		//change to unlocked design
-		currentButton.setBackground(getActivity().getResources().getDrawable(R.drawable.unlocked));
+		currentButton.setBackgroundDrawable(getActivity().getResources().getDrawable(R.drawable.unlocked));
 		// ToDo localize?
 		currentButton.setText("Unlocked!");
 		currentButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.unlock, 0, 0, 0);
@@ -138,7 +137,7 @@ public class PlaceViewFragment extends Fragment {
 			public void run(){
 				
 				//after delay back to old design re-enable click
-				currentButton.setBackground(currentBackground);
+				currentButton.setBackgroundDrawable(currentBackground);
 				currentButton.setText(currentString);
 				currentButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.lock, 0, 0, 0);
 				currentButton.setClickable(true);
