@@ -9,7 +9,10 @@ import com.manavo.rest.RestCallback;
 import de.kisi.android.model.Lock;
 import de.kisi.android.model.Place;
 
+import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -72,10 +75,7 @@ public class PlaceViewFragment extends Fragment {
 	public void setupButtons(List<Lock> locks) {
 		int[] buttons = {R.id.buttonThreeDoorOne, R.id.buttonThreeDoorTwo, R.id.buttonThreeDoorThree};
 
-		
 		Typeface font = Typeface.createFromAsset(getActivity().getApplicationContext().getAssets(),"Roboto-Light.ttf"); 
-		
-
 		
 		int i = 0;
 		for ( final Lock lock : locks ) {
