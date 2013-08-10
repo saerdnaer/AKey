@@ -45,7 +45,7 @@ public class PlaceViewFragment extends Fragment {
 		int index = getArguments().getInt("index");
 		final Place l = ((KisiMain)getActivity()).locations.valueAt(index);
 		
-		layout = (RelativeLayout) inflater.inflate(R.layout.locationthreedoors, container, false);
+		layout = (RelativeLayout) inflater.inflate(R.layout.place_fragment, container, false);
 
 		if ( l.getLocks() == null ) {
 			KisiApi api = new KisiApi(this.getActivity());
@@ -70,9 +70,8 @@ public class PlaceViewFragment extends Fragment {
 	}
 	
 	public void setupButtons(List<Lock> locks) {
-		int[] buttons = {R.id.buttonThreeDoorOne, R.id.buttonThreeDoorTwo, R.id.buttonThreeDoorThree};
+		int[] buttons = {R.id.buttonLockOne, R.id.buttonLockTwo, R.id.buttonLockThree};
 
-		
 		int i = 0;
 		for ( final Lock lock : locks ) {
 			if ( i >= buttons.length ) {

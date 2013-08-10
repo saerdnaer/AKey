@@ -16,10 +16,10 @@
         android:orientation="vertical" >
 
         <Button
-            android:id="@+id/buttonThreeDoorOne"
+            android:id="@+id/buttonLockOne"
             android:layout_width="300sp"
             android:layout_height="wrap_content"
-            android:background="@drawable/dooronebutton"
+            android:background="@drawable/lock_one_button"
             android:drawableLeft="@drawable/lock"
             android:gravity="center"
             android:text="@string/doorOne"
@@ -28,11 +28,11 @@
             android:visibility="invisible" />
 
         <Button
-            android:id="@+id/buttonThreeDoorTwo"
+            android:id="@+id/buttonLockTwo"
             android:layout_width="300sp"
             android:layout_height="wrap_content"
             android:layout_marginTop="20sp"
-            android:background="@drawable/doortwobutton"
+            android:background="@drawable/lock_two_button"
             android:drawableLeft="@drawable/lock"
             android:gravity="center"
             android:text="@string/doortwoopen"
@@ -41,11 +41,11 @@
             android:visibility="invisible" />
 
         <Button
-            android:id="@+id/buttonThreeDoorThree"
+            android:id="@+id/buttonLockThree"
             android:layout_width="300sp"
             android:layout_height="wrap_content"
             android:layout_marginTop="20sp"
-            android:background="@drawable/doorthreebutton"
+            android:background="@drawable/lock_three_button"
             android:drawableLeft="@drawable/lock"
             android:gravity="center"
             android:text="@string/doorthreeopen"
