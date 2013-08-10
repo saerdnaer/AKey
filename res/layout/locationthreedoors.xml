@@ -5,20 +5,7 @@
     android:layout_height="match_parent"
     android:layout_centerVertical="true"
     android:layout_gravity="center"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin" >
-
-    <TextView
-        android:id="@+id/textViewThreeDoors"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dp"
-        android:text="@string/locationthreedoors"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+    android:background="@drawable/backgroundmain2" >
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -30,29 +17,41 @@
 
         <Button
             android:id="@+id/buttonThreeDoorOne"
-            android:layout_width="200sp"
-            android:layout_height="100sp"
+            android:layout_width="300sp"
+            android:layout_height="wrap_content"
             android:background="@drawable/dooronebutton"
+            android:drawableLeft="@drawable/lock"
+            android:gravity="center"
             android:text="@string/doorOne"
-            android:textColor="#ffffff" />
+            android:textColor="#ffffff"
+            android:textSize="35sp"
+            android:visibility="invisible" />
 
         <Button
             android:id="@+id/buttonThreeDoorTwo"
-            android:layout_width="200sp"
-            android:layout_height="100sp"
-            android:layout_marginTop="20dp"
+            android:layout_width="300sp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20sp"
             android:background="@drawable/doortwobutton"
+            android:drawableLeft="@drawable/lock"
+            android:gravity="center"
             android:text="@string/doortwoopen"
-            android:textColor="#ffffff" />
+            android:textColor="#ffffff"
+            android:textSize="35sp"
+            android:visibility="invisible" />
 
         <Button
             android:id="@+id/buttonThreeDoorThree"
-            android:layout_width="200sp"
-            android:layout_height="100sp"
-            android:layout_marginTop="20dp"
+            android:layout_width="300sp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20sp"
             android:background="@drawable/doorthreebutton"
+            android:drawableLeft="@drawable/lock"
+            android:gravity="center"
             android:text="@string/doorthreeopen"
-            android:textColor="#ffffff" />
+            android:textColor="#ffffff"
+            android:textSize="35sp"
+            android:visibility="invisible" />
     </LinearLayout>
 
 </RelativeLayout>

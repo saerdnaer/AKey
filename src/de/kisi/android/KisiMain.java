@@ -35,9 +35,7 @@ public class KisiMain extends FragmentActivity {
 		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE,
 				R.layout.window_title);
 
-		TextView title = (TextView) findViewById(R.id.title);
 
-		title.setText("Your places");
 
 		initializePager();
 

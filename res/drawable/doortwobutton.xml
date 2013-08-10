@@ -6,13 +6,13 @@ xmlns:android="http://schemas.android.com/apk/res/android">
 <item android:state_pressed="true" >
      <shape>
         <gradient
-            android:endColor="#aadc2e"
-            android:centerColor="#8cb81f"
-            android:startColor="#8cb81f"
+            android:endColor="#00ad98"
+            android:centerColor="#009482"
+            android:startColor="#009482"
             android:angle="270" />
         <stroke
-            android:width="5dp"
-            android:color="#ffffff" />
+            android:width="2dp"
+            android:color="#000000" />
         <corners
             android:radius="5dp" />
     </shape>
@@ -23,13 +23,13 @@ xmlns:android="http://schemas.android.com/apk/res/android">
 <item>        
     <shape>
         <gradient
-            android:endColor="#aadc2e"
-            android:centerColor="#aadc2e"
-            android:startColor="#aadc2e"
+            android:endColor="#00ad98"
+            android:centerColor="#00ad98"
+            android:startColor="#00ad98"
             android:angle="270" />
         <stroke
-            android:width="5dp"
-            android:color="#ffffff" />
+            android:width="2dp"
+            android:color="#000000" />
         <corners
             android:radius="5dp" />
     </shape>

@@ -24,6 +24,7 @@ import android.widget.Toast;
 public class PlaceViewFragment extends Fragment {
 
 	private RelativeLayout layout;
+	private final long delay = 5000;
 	
 	static PlaceViewFragment newInstance(int index) {
 		// Fragments must not have a custom constructor 
@@ -44,10 +45,7 @@ public class PlaceViewFragment extends Fragment {
 		int index = getArguments().getInt("index");
 		final Place l = ((KisiMain)getActivity()).locations.valueAt(index);
 		
-		layout = (RelativeLayout) inflater.inflate(R.layout.locationtwodoors, container, false);
-
-		TextView adress = (TextView) layout.findViewById(R.id.textViewTwoDoors);
-		adress.setText(l.getAddress());
+		layout = (RelativeLayout) inflater.inflate(R.layout.locationthreedoors, container, false);
 
 		if ( l.getLocks() == null ) {
 			KisiApi api = new KisiApi(this.getActivity());
@@ -72,7 +70,12 @@ public class PlaceViewFragment extends Fragment {
 	}
 	
 	public void setupButtons(List<Lock> locks) {
-		int[] buttons = {R.id.buttonTwoDoorOne, R.id.buttonTwoDoorTwo};
+		int[] buttons = {R.id.buttonThreeDoorOne, R.id.buttonThreeDoorTwo, R.id.buttonThreeDoorThree};
+
+		
+		Typeface font = Typeface.createFromAsset(getActivity().getApplicationContext().getAssets(),"Roboto-Light.ttf"); 
+		
+
 		
 		int i = 0;
 		for ( final Lock lock : locks ) {
@@ -80,9 +83,12 @@ public class PlaceViewFragment extends Fragment {
 				Log.d("waring", "more locks then buttons!");
 				break;
 			}
-			final Button button = (Button) layout.findViewById(buttons[i++]);
-			button.setText("Unlock " + lock.getName());
+
+			final Button button = (Button) layout.findViewById(buttons[i]);
+			// ToDo localize?
+			button.setText("Unlock"+ "\n"+lock.getName());
 			button.setVisibility(View.VISIBLE);
+			i++;
 			
 			button.setOnClickListener( new OnClickListener() {
 				@Override
@@ -93,7 +99,9 @@ public class PlaceViewFragment extends Fragment {
 					api.setCallback(new RestCallback() {
 						public void success(Object obj) {
 							Toast.makeText(getActivity(), "Lock was opened successfully", Toast.LENGTH_LONG).show();
-							Log.i("Lock", obj.toString());
+							//change button design
+							buttonToUnlock(button);
+
 						}
 
 					});
@@ -106,6 +114,37 @@ public class PlaceViewFragment extends Fragment {
 		for ( ; i < buttons.length; i++) {
 			Button button = (Button) layout.findViewById(buttons[i]);
 			button.setVisibility(View.GONE);
+
 		}
+	}
+	
+	public void buttonToUnlock(Button button){
+		//save button design
+		final Drawable currentBackground = button.getBackground();
+		final String currentString = (String) button.getText();
+		final Button currentButton = button;
+		
+		//change to unlocked design
+		currentButton.setBackground(getActivity().getResources().getDrawable(R.drawable.unlocked));
+		// ToDo localize?
+		currentButton.setText("Unlocked!");
+		currentButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.unlock, 0, 0, 0);
+		
+		//disable click
+		currentButton.setClickable(false);
+		
+		Handler handler = new Handler();
+		handler.postDelayed(new Runnable(){
+			public void run(){
+				
+				//after delay back to old design re-enable click
+				currentButton.setBackground(currentBackground);
+				currentButton.setText(currentString);
+				currentButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.lock, 0, 0, 0);
+				currentButton.setClickable(true);
+
+			}
+		}, delay);
+		
 	}
 }
