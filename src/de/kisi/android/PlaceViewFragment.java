@@ -9,7 +9,6 @@ import com.manavo.rest.RestCallback;
 import de.kisi.android.model.Lock;
 import de.kisi.android.model.Place;
 
-import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
@@ -21,7 +20,6 @@ import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 public class PlaceViewFragment extends Fragment {
 
@@ -74,7 +72,6 @@ public class PlaceViewFragment extends Fragment {
 	public void setupButtons(List<Lock> locks) {
 		int[] buttons = {R.id.buttonThreeDoorOne, R.id.buttonThreeDoorTwo, R.id.buttonThreeDoorThree};
 
-		Typeface font = Typeface.createFromAsset(getActivity().getApplicationContext().getAssets(),"Roboto-Light.ttf"); 
 		
 		int i = 0;
 		for ( final Lock lock : locks ) {
@@ -92,12 +89,11 @@ public class PlaceViewFragment extends Fragment {
 			button.setOnClickListener( new OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					Log.d("pressed", "opening door " + String.valueOf(lock.getName()));
 					KisiApi api = new KisiApi(getActivity());
 
 					api.setCallback(new RestCallback() {
 						public void success(Object obj) {
-							Toast.makeText(getActivity(), "Lock was opened successfully", Toast.LENGTH_LONG).show();
+							//Toast.makeText(getActivity(), "Lock was opened successfully", Toast.LENGTH_LONG).show();
 							//change button design
 							buttonToUnlock(button);
 
