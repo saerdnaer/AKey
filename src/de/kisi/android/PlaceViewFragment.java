@@ -9,6 +9,8 @@ import com.manavo.rest.RestCallback;
 import de.kisi.android.model.Lock;
 import de.kisi.android.model.Place;
 
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
@@ -20,6 +22,7 @@ import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 public class PlaceViewFragment extends Fragment {
 
@@ -71,6 +74,9 @@ public class PlaceViewFragment extends Fragment {
 	
 	public void setupButtons(List<Lock> locks) {
 		int[] buttons = {R.id.buttonLockOne, R.id.buttonLockTwo, R.id.buttonLockThree};
+		int[] texts = {R.id.placeOneText,R.id.placeTwoText,R.id.placeThreeText};
+		
+		Typeface font = Typeface.createFromAsset(getActivity().getApplicationContext().getAssets(),"Roboto-Light.ttf"); 
 
 		int i = 0;
 		for ( final Lock lock : locks ) {
@@ -80,8 +86,10 @@ public class PlaceViewFragment extends Fragment {
 			}
 
 			final Button button = (Button) layout.findViewById(buttons[i]);
-			// TODO localize?
-			button.setText("Unlock"+ "\n"+lock.getName());
+			final TextView currentText = (TextView) layout.findViewById(texts[i]);
+			currentText.setText(lock.getName());
+			currentText.setTypeface(font);
+			currentText.setVisibility(View.VISIBLE);
 			button.setVisibility(View.VISIBLE);
 			i++;
 			
@@ -94,7 +102,7 @@ public class PlaceViewFragment extends Fragment {
 						public void success(Object obj) {
 							//Toast.makeText(getActivity(), "Lock was opened successfully", Toast.LENGTH_LONG).show();
 							//change button design
-							buttonToUnlock(button, lock);
+							buttonToUnlock(button, lock , currentText);
 
 						}
 
@@ -107,22 +115,30 @@ public class PlaceViewFragment extends Fragment {
 		// set unused buttons to gone, so the automatic layout works
 		for ( ; i < buttons.length; i++) {
 			Button button = (Button) layout.findViewById(buttons[i]);
+			TextView text = (TextView) layout.findViewById(texts[i]);
 			button.setVisibility(View.GONE);
+			text.setVisibility(View.GONE);
+			
 
 		}
 	}
 	
-	public void buttonToUnlock(Button button, Lock lock){
+	public void buttonToUnlock(Button button, Lock lock, TextView text){
 		//save button design
+		final TextView currentText = text;
 		final Drawable currentBackground = button.getBackground();
-		final String currentString = (String) button.getText();
 		final Button currentButton = button;
 		
+		final float density = getActivity().getResources().getDisplayMetrics().density;
+		final int shift = (int)(43*density);
+		
 		//change to unlocked design
+		
+		currentText.setTextColor(Color.parseColor("#5fe100"));
 		currentButton.setBackgroundDrawable(getActivity().getResources().getDrawable(R.drawable.unlocked));
+		currentButton.setPadding(currentButton.getPaddingLeft()+shift, 0, 0, 0);
 		// TODO localize?
-		currentButton.setText("Unlocked " + lock.getName());
-		currentButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.unlock, 0, 0, 0);
+		currentButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.kisi_lock_open2,0, 0, 0);
 		
 		//disable click
 		currentButton.setClickable(false);
@@ -132,9 +148,10 @@ public class PlaceViewFragment extends Fragment {
 			public void run(){
 				
 				//after delay back to old design re-enable click
+				currentText.setTextColor(Color.parseColor("#FFFFFF"));
 				currentButton.setBackgroundDrawable(currentBackground);
-				currentButton.setText(currentString);
-				currentButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.lock, 0, 0, 0);
+				currentButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.kisi_lock,0, 0, 0);
+				currentButton.setPadding(currentButton.getPaddingLeft()-shift, 0, 0, 0);
 				currentButton.setClickable(true);
 
 			}
