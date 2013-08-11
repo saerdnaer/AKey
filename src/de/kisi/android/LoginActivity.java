@@ -107,6 +107,9 @@ public class LoginActivity extends Activity implements OnClickListener {
 		
 		//Toast.makeText(this, "logging in", Toast.LENGTH_LONG).show();
 
+		// clear old auth token
+		KisiApi.setAuthToken("");
+
 		String email = userNameField.getText().toString(); // get Text of
 		String password = paswordField.getText().toString();
 		
