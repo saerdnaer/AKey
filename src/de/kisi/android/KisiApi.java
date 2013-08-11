@@ -52,4 +52,17 @@ public class KisiApi extends RestApi {
 	public void post(String url) {
 		super.post(url);
 	}
+	
+	@Override 
+	public void onStatusCodeError(int code, String data) {
+		if (this.errorCallback == null && data.startsWith("{\"error\":") ) {
+			try {
+				JSONObject data_json = new JSONObject(data);
+				data = data_json.getString("error");
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		}
+		super.onStatusCodeError(code, data);
+	}
 }
