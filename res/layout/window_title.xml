@@ -2,9 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="66dip"
-    android:background="#375993"
-    
-    >
+    android:background="#375993" >
 
     <ImageView
         android:id="@+id/header"
@@ -13,5 +11,14 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:src="@drawable/logo2" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:background="@drawable/settingsbutton"
+        android:src="@drawable/ic_action_overflow"
+        android:onClick="showPopup" />
 
 </RelativeLayout>
