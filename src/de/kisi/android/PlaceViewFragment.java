@@ -80,7 +80,7 @@ public class PlaceViewFragment extends Fragment {
 			}
 
 			final Button button = (Button) layout.findViewById(buttons[i]);
-			// ToDo localize?
+			// TODO localize?
 			button.setText("Unlock"+ "\n"+lock.getName());
 			button.setVisibility(View.VISIBLE);
 			i++;
@@ -94,7 +94,7 @@ public class PlaceViewFragment extends Fragment {
 						public void success(Object obj) {
 							//Toast.makeText(getActivity(), "Lock was opened successfully", Toast.LENGTH_LONG).show();
 							//change button design
-							buttonToUnlock(button);
+							buttonToUnlock(button, lock);
 
 						}
 
@@ -112,7 +112,7 @@ public class PlaceViewFragment extends Fragment {
 		}
 	}
 	
-	public void buttonToUnlock(Button button){
+	public void buttonToUnlock(Button button, Lock lock){
 		//save button design
 		final Drawable currentBackground = button.getBackground();
 		final String currentString = (String) button.getText();
@@ -120,8 +120,8 @@ public class PlaceViewFragment extends Fragment {
 		
 		//change to unlocked design
 		currentButton.setBackgroundDrawable(getActivity().getResources().getDrawable(R.drawable.unlocked));
-		// ToDo localize?
-		currentButton.setText("Unlocked!");
+		// TODO localize?
+		currentButton.setText("Unlocked " + lock.getName());
 		currentButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.unlock, 0, 0, 0);
 		
 		//disable click
