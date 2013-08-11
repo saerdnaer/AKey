@@ -16,66 +16,43 @@
         android:baselineAligned="false"
         android:orientation="vertical" >
 
-        <TextView
-            android:id="@+id/placeOneText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/doorOne"
-            android:textColor="#ffffff"
-            android:textSize="20sp"
-            android:visibility="invisible" />
-
         <Button
             android:id="@+id/buttonLockOne"
             android:layout_width="300sp"
             android:layout_height="85sp"
-            android:layout_marginTop="3sp"
+            android:layout_marginTop="20sp"
             android:background="@drawable/lock_one_button"
             android:drawableLeft="@drawable/kisi_lock"
             android:gravity="center"
-            android:paddingLeft="95sp"
-            android:visibility="invisible" />
-
-        <TextView
-            android:id="@+id/placeTwoText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20sp"
-            android:text="@string/doorOne"
+            android:paddingLeft="25sp"
             android:textColor="#ffffff"
-            android:textSize="20sp"
+            android:textSize="25sp"
             android:visibility="invisible" />
 
         <Button
             android:id="@+id/buttonLockTwo"
             android:layout_width="300sp"
             android:layout_height="85sp"
-            android:layout_marginTop="3sp"
+            android:layout_marginTop="20sp"
             android:background="@drawable/lock_two_button"
             android:drawableLeft="@drawable/kisi_lock"
             android:gravity="center"
-            android:paddingLeft="95sp"
-            android:visibility="invisible" />
-
-        <TextView
-            android:id="@+id/placeThreeText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20sp"
-            android:text="@string/doorOne"
+            android:paddingLeft="25sp"
             android:textColor="#ffffff"
-            android:textSize="20sp"
+            android:textSize="25sp"
             android:visibility="invisible" />
 
         <Button
             android:id="@+id/buttonLockThree"
             android:layout_width="300sp"
             android:layout_height="85sp"
-            android:layout_marginTop="3sp"
+            android:layout_marginTop="20sp"
             android:background="@drawable/lock_three_button"
             android:drawableLeft="@drawable/kisi_lock"
             android:gravity="center"
-            android:paddingLeft="95sp"
+            android:paddingLeft="25sp"
+            android:textColor="#ffffff"
+            android:textSize="25sp"
             android:visibility="invisible" />
     </LinearLayout>
 
