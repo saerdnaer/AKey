@@ -22,7 +22,7 @@ public class Login {
 		this.pasword = pasword;
 	}
 
-	public String getPasword() {
+	public String getPassword() {
 		return pasword;
 	}
 }

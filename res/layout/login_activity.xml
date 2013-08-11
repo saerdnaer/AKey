@@ -41,7 +41,7 @@
             />
 
         <EditText
-            android:id="@+id/editText1"
+            android:id="@+id/email"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="70dp"
@@ -55,7 +55,7 @@
         </EditText>
 
         <EditText
-            android:id="@+id/editText2"
+            android:id="@+id/password"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
@@ -66,11 +66,10 @@
             android:textColorHint="#ffffff" />
 
         <CheckBox
-            android:id="@+id/checkBox1"
+            android:id="@+id/rememberCheckBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:checked="true"
             android:text="@string/RememberMe"
             android:textColor="#A6C3FF"
             android:textSize="13sp" />
@@ -86,7 +85,7 @@
             android:textSize="13sp" />
 
         <Button
-            android:id="@+id/button1"
+            android:id="@+id/loginButton"
             android:layout_width="300dp"
             android:layout_height="50dp"
             android:layout_marginTop="10dp"
@@ -103,7 +102,7 @@
         android:background="#0F2938" >
 
         <TextView
-            android:id="@+id/textView1"
+            android:id="@+id/registerText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"

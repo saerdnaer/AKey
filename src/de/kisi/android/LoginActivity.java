@@ -29,7 +29,7 @@ public class LoginActivity extends Activity implements OnClickListener {
 
 	private Button loginButton;
 	private EditText userNameField;
-	private EditText paswordField;
+	private EditText passwordField;
 
 	private TextView newUser;
 	private TextView forgotPw;
@@ -49,7 +49,7 @@ public class LoginActivity extends Activity implements OnClickListener {
 		
 		KisiApi.setAuthToken(null);
 
-		loginButton = (Button) findViewById(R.id.button1);
+		loginButton = (Button) findViewById(R.id.loginButton);
 		loginButton.setOnClickListener(this);
 		
 		loginButton.getBackground().setAlpha(185);
@@ -57,11 +57,11 @@ public class LoginActivity extends Activity implements OnClickListener {
 
 		settings = getSharedPreferences("Config", MODE_PRIVATE);
 
-		userNameField = (EditText) findViewById(R.id.editText1);
-		paswordField = (EditText) findViewById(R.id.editText2);
-		paswordField.setTypeface(Typeface.DEFAULT);
+		userNameField = (EditText) findViewById(R.id.email);
+		passwordField = (EditText) findViewById(R.id.password);
+		passwordField.setTypeface(Typeface.DEFAULT);
 
-		newUser = (TextView) findViewById(R.id.textView1);
+		newUser = (TextView) findViewById(R.id.registerText);
 
 		newUser.setText(Html.fromHtml("New? "
 				+ "<a href=\"https://www.kisi.de/users/sign_up\">Get started on our website</a> "));
@@ -77,9 +77,9 @@ public class LoginActivity extends Activity implements OnClickListener {
 	}
 
 	@Override
-	public void onBackPressed() { // sends App to Background if Backbutton is
-									// pressed
-									// prevents security issues
+	public void onBackPressed() { 
+		// sends App to background if back button is pressed
+		// prevents security issues
 		moveTaskToBack(true);
 	}
 
@@ -87,9 +87,13 @@ public class LoginActivity extends Activity implements OnClickListener {
 	protected void onStart() {
 		Login savedLogin = getLogin();
 
-		if (!savedLogin.getUserName().equals("")) {
+		if (!savedLogin.getUserName().isEmpty()) {
 			userNameField.setText(savedLogin.getUserName());
-			paswordField.setText(savedLogin.getPasword());
+			if (savedLogin.getPassword().isEmpty()) {
+				passwordField.requestFocus();
+			} else {
+				passwordField.setText(savedLogin.getPassword());
+			}
 		}
 		super.onStart();
 	}
@@ -104,14 +108,12 @@ public class LoginActivity extends Activity implements OnClickListener {
 	@Override
 	public void onClick(View arg0) {
 		// user touched the login botton: gather all informations and send to next view
-		
-		//Toast.makeText(this, "logging in", Toast.LENGTH_LONG).show();
 
 		// clear old auth token
 		KisiApi.setAuthToken("");
 
 		String email = userNameField.getText().toString(); // get Text of
-		String password = paswordField.getText().toString();
+		String password = passwordField.getText().toString();
 		
 		KisiApi api = new KisiApi(this);
 
@@ -142,14 +144,12 @@ public class LoginActivity extends Activity implements OnClickListener {
 
 		// Toast.makeText(this, userName+" "+password, Toast.LENGTH_LONG).show();
 
-		CheckBox savePassword = (CheckBox) findViewById(R.id.checkBox1);
+		CheckBox savePassword = (CheckBox) findViewById(R.id.rememberCheckBox);
 
 		if (savePassword.isChecked()) {
-			Log.d("check", "saving");
 			saveLogin(loginData);
 
 		} else {
-			Log.d("check", "deleting");
 			deleteLogin();
 		}
 		api.post("users/sign_in");
@@ -157,7 +157,7 @@ public class LoginActivity extends Activity implements OnClickListener {
 
 	private void deleteLogin() {
 		editor = settings.edit();
-		//editor.remove("userName"); // (Maybe) temporary for debugging purpurses --Andi
+		//editor.remove("userName"); // TODO (Maybe) temporary for debugging purpurses --Andi
 		editor.remove("pasword");
 		editor.remove("saved");
 		editor.commit();
@@ -166,7 +166,7 @@ public class LoginActivity extends Activity implements OnClickListener {
 	private void saveLogin(Login login) {
 		editor = settings.edit();
 		editor.putString("userName", login.getUserName());
-		editor.putString("pasword", login.getPasword());
+		editor.putString("pasword", login.getPassword());
 		editor.putBoolean("saved", true);
 		editor.commit();
 	}
