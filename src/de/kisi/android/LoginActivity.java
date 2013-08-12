@@ -30,6 +30,7 @@ public class LoginActivity extends Activity implements OnClickListener {
 	private Button loginButton;
 	private EditText userNameField;
 	private EditText passwordField;
+	private CheckBox savePassword;
 
 	private TextView newUser;
 	private TextView forgotPw;
@@ -60,6 +61,7 @@ public class LoginActivity extends Activity implements OnClickListener {
 		userNameField = (EditText) findViewById(R.id.email);
 		passwordField = (EditText) findViewById(R.id.password);
 		passwordField.setTypeface(Typeface.DEFAULT);
+		savePassword = (CheckBox) findViewById(R.id.rememberCheckBox);
 
 		newUser = (TextView) findViewById(R.id.registerText);
 
@@ -93,6 +95,7 @@ public class LoginActivity extends Activity implements OnClickListener {
 				passwordField.requestFocus();
 			} else {
 				passwordField.setText(savedLogin.getPassword());
+				savePassword.setChecked(true);
 			}
 		}
 		super.onStart();
@@ -143,8 +146,6 @@ public class LoginActivity extends Activity implements OnClickListener {
 		loginData = new Login(email, password);
 
 		// Toast.makeText(this, userName+" "+password, Toast.LENGTH_LONG).show();
-
-		CheckBox savePassword = (CheckBox) findViewById(R.id.rememberCheckBox);
 
 		if (savePassword.isChecked()) {
 			saveLogin(loginData);
