@@ -9,7 +9,6 @@ import com.manavo.rest.RestCallback;
 import de.kisi.android.model.Lock;
 import de.kisi.android.model.Place;
 
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -22,7 +21,6 @@ import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 public class PlaceViewFragment extends Fragment {
 

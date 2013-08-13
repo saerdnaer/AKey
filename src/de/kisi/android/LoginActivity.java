@@ -14,7 +14,6 @@ import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -52,7 +51,6 @@ public class LoginActivity extends Activity implements OnClickListener {
 
 		loginButton = (Button) findViewById(R.id.loginButton);
 		loginButton.setOnClickListener(this);
-		
 		loginButton.getBackground().setAlpha(185);
 		
 
