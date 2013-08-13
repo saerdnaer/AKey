@@ -7,17 +7,18 @@ import de.kisi.android.model.Place;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.util.SparseArray;
 
 public class MyFragmentPagerAdapter extends FragmentPagerAdapter {
 
 	int PAGE_COUNT;
 	private List<Fragment> fragments;
+	private KisiMain activity;
 
 	/** Constructor of the class */
-	public MyFragmentPagerAdapter(FragmentManager fm, List<Fragment> fragments) {
+	public MyFragmentPagerAdapter(FragmentManager fm, List<Fragment> fragments, KisiMain activity) {
 		super(fm);
 		this.fragments = fragments;
+		this.activity = activity;
 		PAGE_COUNT = fragments.size();
 	}
 
@@ -37,10 +38,7 @@ public class MyFragmentPagerAdapter extends FragmentPagerAdapter {
 	@Override
 	public CharSequence getPageTitle(int num) {
 		//int location_id = getItem(num).getArguments().getInt("location_id");
-		// TODO is there a nicer way to get the Activity? --Andi
-		SparseArray<Place> locations = ((KisiMain) getItem(0).getActivity()).locations;
-		//Location l = locations.get(location_id);
-		Place l = locations.valueAt(num);
+		Place l = activity.locations.valueAt(num);
 		return l.getName();
 	}
 }

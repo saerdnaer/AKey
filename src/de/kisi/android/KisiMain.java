@@ -19,6 +19,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.util.SparseArray;
@@ -71,10 +72,10 @@ public class KisiMain extends FragmentActivity implements
 	}
 
 	public void initializePager() {
-		updateLocations();
+		updatePlaces();
 	}
 
-	private void updateLocations() {
+	private void updatePlaces() {
 		KisiApi api = new KisiApi(this);
 
 		api.setCallback(new RestCallback() {
@@ -112,22 +113,21 @@ public class KisiMain extends FragmentActivity implements
 		FragmentManager fm = getSupportFragmentManager();
 		ViewPager pager = (ViewPager) findViewById(R.id.pager);
 		MyFragmentPagerAdapter pagerAdapter = new MyFragmentPagerAdapter(fm,
-				fragments);
+				fragments, this);
 		pager.setAdapter(pagerAdapter);
 	}
 
 	@Override
 	public boolean onMenuItemClick(MenuItem item) {
+		ViewPager pager = (ViewPager) findViewById(R.id.pager);
+		
 		switch (item.getItemId()) {
 		case R.id.refresh:
-			Log.d("refresh", "try to refresh");
-
-			// TODO implement Refresh
+			updatePlaces();
 			return true;
 
 		case R.id.share:
-			// TODO add view with form to select locks + mailadress
-			ViewPager pager = (ViewPager) findViewById(R.id.pager);
+			// TODO add view with form to select locks + assignee_email
 			Place p = locations.valueAt(pager.getCurrentItem());
 			
 			if ( p.getOwnerId() != KisiApi.getUserId() ) {
