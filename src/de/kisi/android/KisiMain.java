@@ -5,11 +5,14 @@ import java.util.Vector;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import com.manavo.rest.RestCallback;
 
+import de.kisi.android.model.Lock;
 import de.kisi.android.model.Place;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -24,6 +27,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.PopupMenu;
+import android.widget.Toast;
 
 public class KisiMain extends FragmentActivity implements
 		PopupMenu.OnMenuItemClickListener {
@@ -122,8 +126,47 @@ public class KisiMain extends FragmentActivity implements
 			return true;
 
 		case R.id.share:
-			// TODO implement Share
-			Log.d("share", "try to share");
+			// TODO add view with form to select locks + mailadress
+			ViewPager pager = (ViewPager) findViewById(R.id.pager);
+			Place p = locations.valueAt(pager.getCurrentItem());
+			
+			if ( p.getOwnerId() != KisiApi.getUserId() ) {
+				Toast.makeText(this, "Only the owner of a place can create new keys.", Toast.LENGTH_LONG).show();
+				return false;
+			}
+			
+			
+			KisiApi api = new KisiApi(this);
+			
+			JSONArray lock_ids = new JSONArray();
+			for ( Lock l : p.getLocks() ) {
+				lock_ids.put(l.getId());
+			}
+			JSONObject key = new JSONObject();
+			try {
+				key.put("lock_ids", lock_ids);
+				key.put("assignee_email", "johann.rottenfusser@gmx.net");
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+			api.addParameter("key", (Object) key);
+
+			final Activity activity = this;
+			
+			api.setCallback(new RestCallback() {
+				public void success(Object obj) {
+					JSONObject data = (JSONObject) obj;
+					try {
+						Toast.makeText(activity, String.format("Key for %s was created successfully.", data.getString("assignee_email")), Toast.LENGTH_LONG).show();
+					} catch (JSONException e) {
+						e.printStackTrace();
+					}
+					//Log.d("share", data.toString());
+				}
+
+			});
+			api.post("places/" + String.valueOf(p.getId()) + "/keys");
+			
 			return true;
 
 		}
