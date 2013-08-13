@@ -12,6 +12,7 @@ import android.app.Activity;
 public class KisiApi extends RestApi {
 	
 	private static String authToken;
+	private static int user_id;
 
 	public KisiApi(Activity activity) {
 		super(activity);
@@ -26,6 +27,12 @@ public class KisiApi extends RestApi {
 
 	public static void setAuthToken(String token) {
 		KisiApi.authToken = token;
+	}
+	public static void setUserId(int user_id) {
+		KisiApi.user_id = user_id;
+	}
+	public static int getUserId() {
+		return KisiApi.user_id;
 	}
 	
 	// return class instance so we can chain calls
