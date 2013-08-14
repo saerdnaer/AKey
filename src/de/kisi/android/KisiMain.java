@@ -141,12 +141,21 @@ public class KisiMain extends FragmentActivity implements
 						"Only the owner of a place can create new keys.",
 						Toast.LENGTH_LONG).show();
 				return false;
-			}
-			else {
+			} else {
 				buildAlertDialog(p);
 				return true;
 			}
 
+		case R.id.getLog:
+			// TODO implement view
+			return true;
+		case R.id.logout:
+			finish();
+			return true;
+
+		case R.id.exit:
+			finish();
+			moveTaskToBack(true);
 		}
 		return false;
 

@@ -24,6 +24,9 @@
     <string name="newUser">New? Get started on our website</string>
     <string name="refresh">Refresh</string>
     <string name="share">Share this Location</string>
+    <string name="log">Get log information</string>
+    <string name="logout">Logout</string>
+    <string name="exit">Exit Application</string>
     
     <string name="pressto">Press to secure unlock</string>
 
