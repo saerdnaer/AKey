@@ -132,8 +132,7 @@ public class KisiMain extends FragmentActivity implements
 			return true;
 
 		case R.id.share:
-			// TODO add view with form to select locks + assignee_email
-
+		
 			Place p = locations.valueAt(pager.getCurrentItem());
 
 			if (p.getOwnerId() != KisiApi.getUserId()) {
