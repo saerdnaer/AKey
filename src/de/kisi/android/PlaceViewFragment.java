@@ -25,7 +25,7 @@ import android.widget.RelativeLayout;
 public class PlaceViewFragment extends Fragment {
 
 	private RelativeLayout layout;
-	private final long delay = 5000;
+	private final long delay = 3000;
 	
 	static PlaceViewFragment newInstance(int index) {
 		// Fragments must not have a custom constructor 
