@@ -1,8 +1,8 @@
 package de.kisi.android;
 
-import java.util.List;
-
 import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import com.manavo.rest.RestCallback;
 
@@ -44,40 +44,40 @@ public class PlaceViewFragment extends Fragment {
 			return null;
 		}
 		int index = getArguments().getInt("index");
-		final Place l = ((KisiMain)getActivity()).locations.valueAt(index);
+		final Place place = ((KisiMain)getActivity()).locations.valueAt(index);
 		
 		layout = (RelativeLayout) inflater.inflate(R.layout.place_fragment, container, false);
 
-		if ( l.getLocks() == null ) {
+		if ( place.getLocks() == null ) {
 			KisiApi api = new KisiApi(this.getActivity());
 	
 			api.setCallback(new RestCallback() {
 				public void success(Object obj) {
 					JSONArray data = (JSONArray)obj;
 	
-					l.setLocks(data);
-					setupButtons(l.getLocks());
+					place.setLocks(data);
+					setupButtons(place);
 				}
 	
 			});
 			api.setLoadingMessage(null);
-			api.get("places/" + String.valueOf(l.getId()) + "/locks");
+			api.get("places/" + String.valueOf(place.getId()) + "/locks");
 		}
 		else {
-			setupButtons(l.getLocks());
+			setupButtons(place);
 		}
 		
 		return layout;
 	}
 	
-	public void setupButtons(List<Lock> locks) {
+	public void setupButtons(final Place place) {
 		int[] buttons = {R.id.buttonLockOne, R.id.buttonLockTwo, R.id.buttonLockThree};
 
 		
 		Typeface font = Typeface.createFromAsset(getActivity().getApplicationContext().getAssets(),"Roboto-Light.ttf"); 
 
 		int i = 0;
-		for ( final Lock lock : locks ) {
+		for ( final Lock lock : place.getLocks() ) {
 			if ( i >= buttons.length ) {
 				Log.d("waring", "more locks then buttons!");
 				break;
@@ -94,12 +94,23 @@ public class PlaceViewFragment extends Fragment {
 				public void onClick(View v) {
 					KisiApi api = new KisiApi(getActivity());
 
+					// Add gps coordinates to access request if user has only guest key
+					if (place.getOwnerId() != KisiApi.getUserId()) {
+						try {
+							JSONObject location = new JSONObject();
+							location.put("lat", 0);
+							location.put("long", 0);
+							api.addParameter("location", location);
+						} catch (JSONException e) {
+							e.printStackTrace();
+						}
+					}
+
 					api.setCallback(new RestCallback() {
 						public void success(Object obj) {
 							//Toast.makeText(getActivity(), "Lock was opened successfully", Toast.LENGTH_LONG).show();
 							//change button design
 							buttonToUnlock(button, lock);
-
 						}
 
 					});
