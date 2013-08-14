@@ -1,5 +1,6 @@
 package de.kisi.android;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
@@ -13,6 +14,8 @@ import de.kisi.android.model.Lock;
 import de.kisi.android.model.Place;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -20,11 +23,15 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
+import android.text.InputType;
 import android.util.SparseArray;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 
@@ -118,7 +125,7 @@ public class KisiMain extends FragmentActivity implements
 	@Override
 	public boolean onMenuItemClick(MenuItem item) {
 		ViewPager pager = (ViewPager) findViewById(R.id.pager);
-		
+
 		switch (item.getItemId()) {
 		case R.id.refresh:
 			updatePlaces();
@@ -126,49 +133,115 @@ public class KisiMain extends FragmentActivity implements
 
 		case R.id.share:
 			// TODO add view with form to select locks + assignee_email
+
 			Place p = locations.valueAt(pager.getCurrentItem());
-			
-			if ( p.getOwnerId() != KisiApi.getUserId() ) {
-				Toast.makeText(this, "Only the owner of a place can create new keys.", Toast.LENGTH_LONG).show();
-				return false;
-			}
-			
-			
-			KisiApi api = new KisiApi(this);
-			
-			JSONArray lock_ids = new JSONArray();
-			for ( Lock l : p.getLocks() ) {
-				lock_ids.put(l.getId());
-			}
-			JSONObject key = new JSONObject();
-			try {
-				key.put("lock_ids", lock_ids);
-				key.put("assignee_email", "johann.rottenfusser@gmx.net");
-			} catch (JSONException e) {
-				e.printStackTrace();
-			}
-			api.addParameter("key", (Object) key);
 
-			final Activity activity = this;
-			
-			api.setCallback(new RestCallback() {
-				public void success(Object obj) {
-					JSONObject data = (JSONObject) obj;
-					try {
-						Toast.makeText(activity, String.format("Key for %s was created successfully.", data.getString("assignee_email")), Toast.LENGTH_LONG).show();
-					} catch (JSONException e) {
-						e.printStackTrace();
-					}
-					//Log.d("share", data.toString());
-				}
+			buildAlertDialog(p);
 
-			});
-			api.post("places/" + String.valueOf(p.getId()) + "/keys");
-			
 			return true;
 
 		}
 		return false;
 
+	}
+
+	private void buildAlertDialog(Place p) {
+		final Place currentPlace = p;
+		final List<Lock> locks = currentPlace.getLocks();
+		LinearLayout linearLayout = new LinearLayout(this);
+		LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+				LinearLayout.LayoutParams.FILL_PARENT,
+				LinearLayout.LayoutParams.WRAP_CONTENT);
+		layoutParams.setMargins(0, 0, 0, 20);
+		linearLayout.setLayoutParams(layoutParams);
+
+		linearLayout.setOrientation(LinearLayout.VERTICAL);
+
+		final EditText emailInput = new EditText(this);
+		emailInput.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+		emailInput.setHint("Email");
+		linearLayout.addView(emailInput, layoutParams);
+
+		final List<CheckBox> checkList = new ArrayList<CheckBox>();
+		for (Lock lock : locks) {
+			CheckBox checkbox = new CheckBox(this);
+			checkbox.setText(lock.getName());
+			checkList.add(checkbox);
+			linearLayout.addView(checkbox, layoutParams);
+		}
+
+		AlertDialog.Builder inputAlertDialog = new AlertDialog.Builder(this);
+		inputAlertDialog.setView(linearLayout);
+		inputAlertDialog.setTitle("Share " + p.getName());
+		inputAlertDialog
+				.setMessage("Enter Email and select locks you want to share");
+
+		inputAlertDialog.setPositiveButton("Share!",
+				new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface arg0, int arg1) {
+						String email = emailInput.getText().toString();
+
+						for (int i = 0; i < checkList.size(); i++) {
+							if (!checkList.get(i).isChecked()) {
+								checkList.remove(i);
+								locks.remove(i);
+							}
+						}
+
+						if (sendRequest(currentPlace, email, locks) == false) {
+							arg0.dismiss();
+						}
+						arg0.dismiss();
+					}
+
+				});
+
+		inputAlertDialog.show();
+	}
+
+	private boolean sendRequest(Place p, String email, List<Lock> locks) {
+		if (p.getOwnerId() != KisiApi.getUserId()) {
+			Toast.makeText(this,
+					"Only the owner of a place can create new keys.",
+					Toast.LENGTH_LONG).show();
+			return false;
+		}
+
+		KisiApi api = new KisiApi(this);
+
+		JSONArray lock_ids = new JSONArray();
+		for (Lock l : locks) {
+			lock_ids.put(l.getId());
+		}
+		JSONObject key = new JSONObject();
+		try {
+			key.put("lock_ids", lock_ids);
+			key.put("assignee_email", email);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		api.addParameter("key", (Object) key);
+
+		final Activity activity = this;
+
+		api.setCallback(new RestCallback() {
+			public void success(Object obj) {
+				JSONObject data = (JSONObject) obj;
+				try {
+					Toast.makeText(
+							activity,
+							String.format(
+									"Key for %s was created successfully.",
+									data.getString("assignee_email")),
+							Toast.LENGTH_LONG).show();
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+				// Log.d("share", data.toString());
+			}
+
+		});
+		api.post("places/" + String.valueOf(p.getId()) + "/keys");
+		return true;
 	}
 }
