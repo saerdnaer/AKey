@@ -179,9 +179,9 @@ public class KisiMain extends FragmentActivity implements
 
 		AlertDialog.Builder inputAlertDialog = new AlertDialog.Builder(this);
 		inputAlertDialog.setView(linearLayout);
-		inputAlertDialog.setTitle("Share " + p.getName());
+		inputAlertDialog.setTitle("Share Location: " + p.getName());
 		inputAlertDialog
-				.setMessage("Enter Email and select locks you want to share");
+				.setMessage("Enter email and select locks you want to share:");
 
 		inputAlertDialog.setPositiveButton("Share!",
 				new DialogInterface.OnClickListener() {
