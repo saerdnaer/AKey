@@ -13,7 +13,7 @@
         android:src="@drawable/logo2" />
 
     <ImageButton
-        android:layout_width="wrap_content"
+        android:layout_width="60sp"
         android:layout_height="fill_parent"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
