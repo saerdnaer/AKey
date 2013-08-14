@@ -147,7 +147,11 @@ public class KisiMain extends FragmentActivity implements
 			}
 
 		case R.id.getLog:
-			// TODO implement view
+			
+			Intent logScreen = new Intent(getApplicationContext(),
+					LogInfo.class);
+			startActivity(logScreen);
+			
 			return true;
 		case R.id.logout:
 			finish();

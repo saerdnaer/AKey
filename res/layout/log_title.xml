@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="66dip"
+    android:background="#375993" >
+    
+    <ImageButton
+        android:id="@+id/back"
+        android:layout_width="60sp"
+        android:layout_height="fill_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:background="@drawable/settingsbutton"
+        android:src="@drawable/navigation_previous"
+        />
+        
+
+    <ImageView
+        android:id="@+id/logheader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/logo2" />
+
+</RelativeLayout>
