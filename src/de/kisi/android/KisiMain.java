@@ -136,9 +136,16 @@ public class KisiMain extends FragmentActivity implements
 
 			Place p = locations.valueAt(pager.getCurrentItem());
 
-			buildAlertDialog(p);
-
-			return true;
+			if (p.getOwnerId() != KisiApi.getUserId()) {
+				Toast.makeText(this,
+						"Only the owner of a place can create new keys.",
+						Toast.LENGTH_LONG).show();
+				return false;
+			}
+			else {
+				buildAlertDialog(p);
+				return true;
+			}
 
 		}
 		return false;
@@ -200,12 +207,6 @@ public class KisiMain extends FragmentActivity implements
 	}
 
 	private boolean sendRequest(Place p, String email, List<Lock> locks) {
-		if (p.getOwnerId() != KisiApi.getUserId()) {
-			Toast.makeText(this,
-					"Only the owner of a place can create new keys.",
-					Toast.LENGTH_LONG).show();
-			return false;
-		}
 
 		KisiApi api = new KisiApi(this);
 
