@@ -148,20 +148,27 @@ public class KisiMain extends FragmentActivity implements
 				return true;
 			}
 
-		case R.id.getLog:
-			
-			Intent logScreen = new Intent(getApplicationContext(),
-					LogInfo.class);
-			startActivity(logScreen);
+		case R.id.showLog:
+
+			Intent logView = new Intent(getApplicationContext(), LogInfo.class);
+			startActivity(logView);
 			
 			return true;
+			
+		case R.id.setup:
+			return true;
+
+
 		case R.id.logout:
 			finish();
 			return true;
 
+		/*
 		case R.id.exit:
 			finish();
 			moveTaskToBack(true);
+			return true;
+		*/
 		}
 		return false;
 
