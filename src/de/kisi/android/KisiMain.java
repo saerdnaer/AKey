@@ -43,6 +43,7 @@ public class KisiMain extends FragmentActivity implements
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
+		//set custom window title
 		requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
 
 		setContentView(R.layout.kisi_main);
@@ -54,6 +55,7 @@ public class KisiMain extends FragmentActivity implements
 
 	}
 
+	//creating popup-menu for settings
 	public void showPopup(View v) {
 		PopupMenu popup = new PopupMenu(this, v);
 		MenuInflater inflater = popup.getMenuInflater();
@@ -125,7 +127,7 @@ public class KisiMain extends FragmentActivity implements
 	@Override
 	public boolean onMenuItemClick(MenuItem item) {
 		ViewPager pager = (ViewPager) findViewById(R.id.pager);
-
+		//set up 
 		switch (item.getItemId()) {
 		case R.id.refresh:
 			updatePlaces();
@@ -200,15 +202,19 @@ public class KisiMain extends FragmentActivity implements
 				new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface arg0, int arg1) {
 						String email = emailInput.getText().toString();
-
+						
+						List<Lock> sendlocks = new ArrayList<Lock>();
 						for (int i = 0; i < checkList.size(); i++) {
-							if (!checkList.get(i).isChecked()) {
-								checkList.remove(i);
-								locks.remove(i);
+							if (checkList.get(i).isChecked()) {
+								sendlocks.add(locks.get(i));
 							}
 						}
+						if(sendlocks.isEmpty()){
+							Toast.makeText(getApplicationContext(), "You have to share at least one lock!", Toast.LENGTH_LONG).show();
+							arg0.dismiss();
+						}
 
-						if (sendRequest(currentPlace, email, locks) == false) {
+						else if (sendRequest(currentPlace, email, sendlocks) == false) {
 							arg0.dismiss();
 						}
 						arg0.dismiss();
