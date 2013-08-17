@@ -221,7 +221,7 @@ public class KisiMain extends FragmentActivity implements
 							arg0.dismiss();
 						}
 
-						else if (sendRequest(currentPlace, email, sendlocks) == false) {
+						else if (createNewKey(currentPlace, email, sendlocks) == false) {
 							arg0.dismiss();
 						}
 						arg0.dismiss();
@@ -232,7 +232,7 @@ public class KisiMain extends FragmentActivity implements
 		inputAlertDialog.show();
 	}
 
-	private boolean sendRequest(Place p, String email, List<Lock> locks) {
+	private boolean createNewKey(Place p, String email, List<Lock> locks) {
 
 		KisiApi api = new KisiApi(this);
 
