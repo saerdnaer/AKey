@@ -39,7 +39,8 @@ import android.widget.Toast;
 public class KisiMain extends FragmentActivity implements
 		PopupMenu.OnMenuItemClickListener {
 
-	public SparseArray<Place> locations;
+	private SparseArray<Place> places;
+	private ViewPager pager;
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -52,7 +53,8 @@ public class KisiMain extends FragmentActivity implements
 		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE,
 				R.layout.window_title);
 
-		initializePager();
+		pager = (ViewPager) findViewById(R.id.pager);
+		updatePlaces();
 
 	}
 
@@ -79,10 +81,6 @@ public class KisiMain extends FragmentActivity implements
 		super.onPause();
 	}
 
-	public void initializePager() {
-		updatePlaces();
-	}
-
 	private void updatePlaces() {
 		KisiApi api = new KisiApi(this);
 		api.setCachePolicy(RestCache.CachePolicy.CACHE_THEN_NETWORK);
@@ -101,16 +99,16 @@ public class KisiMain extends FragmentActivity implements
 	private void setupView(JSONArray locations_json) {
 
 		List<Fragment> fragments = new Vector<Fragment>();
-		locations = new SparseArray<Place>();
+		places = new SparseArray<Place>();
 
 		try {
 			for (int i = 0, j = 0; i < locations_json.length(); i++) {
 				Place location = new Place(locations_json.getJSONObject(i));
 				// The API returned some locations twice, so let's check if we
 				// already have it or not
-				if (locations.indexOfKey(location.getId()) < 0) {
-					locations.put(location.getId(), location);
-					fragments.add(PlaceViewFragment.newInstance(j++));
+				if (places.indexOfKey(location.getId()) < 0) {
+					places.put(location.getId(), location);
+					fragments.add(PlaceFragment.newInstance(j++));
 				}
 			}
 		} catch (JSONException e) {
@@ -119,15 +117,13 @@ public class KisiMain extends FragmentActivity implements
 		}
 
 		FragmentManager fm = getSupportFragmentManager();
-		ViewPager pager = (ViewPager) findViewById(R.id.pager);
-		MyFragmentPagerAdapter pagerAdapter = new MyFragmentPagerAdapter(fm,
+		PlaceFragmentPagerAdapter pagerAdapter = new PlaceFragmentPagerAdapter(fm,
 				fragments, this);
 		pager.setAdapter(pagerAdapter);
 	}
 
 	@Override
 	public boolean onMenuItemClick(MenuItem item) {
-		ViewPager pager = (ViewPager) findViewById(R.id.pager);
 		//set up 
 		switch (item.getItemId()) {
 		case R.id.refresh:
@@ -138,7 +134,7 @@ public class KisiMain extends FragmentActivity implements
 		case R.id.share:
 			// TODO add view with form to select locks + assignee_email
 
-			Place p = locations.valueAt(pager.getCurrentItem());
+			Place p = places.valueAt(pager.getCurrentItem());
 
 			if (p.getOwnerId() != KisiApi.getUserId()) {
 				Toast.makeText(this, R.string.share_owner_only , Toast.LENGTH_LONG).show();
@@ -149,7 +145,7 @@ public class KisiMain extends FragmentActivity implements
 			}
 
 		case R.id.showLog:
-			Place place = locations.valueAt(pager.getCurrentItem());
+			Place place = places.valueAt(pager.getCurrentItem());
 			
 			Intent logView = new Intent(getApplicationContext(), LogInfo.class);
 			logView.putExtra("place_id", place.getId());
@@ -270,5 +266,9 @@ public class KisiMain extends FragmentActivity implements
 		});
 		api.post("places/" + String.valueOf(p.getId()) + "/keys");
 		return true;
+	}
+
+	public SparseArray<Place> getPlaces() {
+		return places;
 	}
 }
