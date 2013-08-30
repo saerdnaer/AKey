@@ -169,9 +169,6 @@ public class KisiMain extends FragmentActivity implements
 			
 			return true;
 
-		case R.id.setup:
-			return true;
-
 		case R.id.logout:
 			finish();
 			return true;
